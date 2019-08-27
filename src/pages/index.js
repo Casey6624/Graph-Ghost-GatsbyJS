@@ -108,7 +108,7 @@ class Index extends React.Component {
 
           <section id="second" className="main special">
             <header className="major">
-              <h2>Ipsum consequat</h2>
+              <h2>What is GraphQL?</h2>
               <p>
                 Donec imperdiet consequat consequat. Suspendisse feugiat congue
                 <br />
@@ -162,23 +162,14 @@ class Index extends React.Component {
 
           <section id="cta" className="main special">
             <header className="major">
-              <h2>Congue imperdiet</h2>
-              <p>
-                Donec imperdiet consequat consequat. Suspendisse feugiat congue
-                <br />
-                posuere. Nulla massa urna, fermentum eget quam aliquet.
-              </p>
+              <h2>Install Graph Ghost Now!</h2>
+              <p>Click below to install our Google Chrome extension.</p>
             </header>
             <footer className="major">
               <ul className="actions">
                 <li>
                   <Link to="/generic" className="button special">
-                    Get Started
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/generic" className="button">
-                    Learn More
+                    Download
                   </Link>
                 </li>
               </ul>
