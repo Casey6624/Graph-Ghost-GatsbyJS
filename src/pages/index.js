@@ -28,7 +28,7 @@ class Index extends React.Component {
   render() {
     return (
       <Layout>
-        <Helmet title="Graph Graph Dash!" />
+        <Helmet title="Graph Ghost! 👻" />
 
         <Header />
 
