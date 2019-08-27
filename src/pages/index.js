@@ -7,6 +7,7 @@ import Layout from '../components/layout'
 import Header from '../components/Header'
 import Nav from '../components/Nav'
 import pic01 from '../assets/images/pic01.jpg'
+import Ghost from '../assets/images/graph.svg'
 
 class Index extends React.Component {
   constructor(props) {
@@ -42,13 +43,13 @@ class Index extends React.Component {
             <div className="spotlight">
               <div className="content">
                 <header className="major">
-                  <h2>Ipsum sed adipiscing</h2>
+                  <h2>What is Graph Ghost?</h2>
                 </header>
                 <p>
-                  Sed lorem ipsum dolor sit amet nullam consequat feugiat
-                  consequat magna adipiscing magna etiam amet veroeros. Lorem
-                  ipsum dolor tempus sit cursus. Tempus nisl et nullam lorem
-                  ipsum dolor sit amet aliquam.
+                  Graph Ghost is a Google Chrome extension which allows a user
+                  to select pieces of a website they want to make into a GraphQL
+                  API and Graph Ghost creates the necessary code required to
+                  host the API.
                 </p>
                 <ul className="actions">
                   <li>
@@ -58,39 +59,39 @@ class Index extends React.Component {
                   </li>
                 </ul>
               </div>
-              <span className="image">
-                <img src={pic01} alt="" />
+              <span className="image" id="imageNoBorder">
+                <img src={Ghost} alt="GraphGhost" />
               </span>
             </div>
           </section>
 
           <section id="first" className="main special">
             <header className="major">
-              <h2>Magna veroeros</h2>
+              <h2>Why Use Graph Ghost?</h2>
             </header>
             <ul className="features">
               <li>
                 <span className="icon major style1 fa-code"></span>
-                <h3>Ipsum consequat</h3>
+                <h3>Get Code In a Matter of Minutes</h3>
                 <p>
-                  Sed lorem amet ipsum dolor et amet nullam consequat a feugiat
-                  consequat tempus veroeros sed consequat.
+                  Get a fully working GraphQL Schema and endpoint Resolvers
+                  within a matter of a few clicks - Easy Peasy!
                 </p>
               </li>
               <li>
-                <span className="icon major style3 fa-copy"></span>
-                <h3>Amed sed feugiat</h3>
+                <span className="icon major style3 fa-pencil"></span>
+                <h3>Prototype Your Ideas Quicker</h3>
                 <p>
-                  Sed lorem amet ipsum dolor et amet nullam consequat a feugiat
-                  consequat tempus veroeros sed consequat.
+                  Stop wasting time creating APIs! Cut down on technical debt
+                  and make your ideas come to life.
                 </p>
               </li>
               <li>
-                <span className="icon major style5 fa-diamond"></span>
-                <h3>Dolor nullam</h3>
+                <span className="icon major style5 fa-star"></span>
+                <h3>Ditch REST APIs</h3>
                 <p>
-                  Sed lorem amet ipsum dolor et amet nullam consequat a feugiat
-                  consequat tempus veroeros sed consequat.
+                  Rid yourself of old, hard to maintain, REST APIs and get a
+                  fancy new GraphQL endpoint to work with.
                 </p>
               </li>
             </ul>

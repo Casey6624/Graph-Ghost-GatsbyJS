@@ -1,6 +1,6 @@
 {
-  "name": "gatsby-starter-stellar",
-  "description": "Gatsby Starter - Stellar by HTML5 UP",
+  "name": "graph-ghost",
+  "description": "GraphQL APIs Made Easy",
   "version": "1.0.0",
   "author": "Hunter Chang",
   "dependencies": {

@@ -7,7 +7,7 @@ const Header = props => (
     <span className="logo">
       <img src={logo} alt="GraphGhost Logo" />
     </span>
-    <h1>Graph Ghost!</h1>
+    <h1>Graph - Ghost!</h1>
     <p>
       Create a reliable, GraphQL API in a matter of minutes.
       <br />A dissertation implementation by{' '}
