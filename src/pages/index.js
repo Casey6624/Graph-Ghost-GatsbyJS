@@ -110,31 +110,29 @@ class Index extends React.Component {
             <header className="major">
               <h2>What is GraphQL?</h2>
               <p>
-                Donec imperdiet consequat consequat. Suspendisse feugiat congue
-                <br />
-                posuere. Nulla massa urna, fermentum eget quam aliquet.
+                A strong and sturdy API for all of your business needs.
               </p>
             </header>
             <ul className="statistics">
               <li className="style1">
                 <span className="icon fa-code-fork"></span>
-                <strong>5,120</strong> Etiam
+                <strong>Founded</strong> By Facebook
               </li>
               <li className="style2">
                 <span className="icon fa-folder-open-o"></span>
-                <strong>8,192</strong> Magna
+                <strong>Strongly</strong>Typed Language
               </li>
               <li className="style3">
                 <span className="icon fa-signal"></span>
-                <strong>2,048</strong> Tempus
+                <strong>1 URL</strong> For All Endpoints
               </li>
               <li className="style4">
                 <span className="icon fa-laptop"></span>
-                <strong>4,096</strong> Aliquam
+                <strong>Easy</strong> To Manage
               </li>
               <li className="style5">
                 <span className="icon fa-diamond"></span>
-                <strong>1,024</strong> Nullam
+                <strong>Strong</strong> Community
               </li>
             </ul>
             <p className="content">
