@@ -53,7 +53,7 @@ class Index extends React.Component {
                 </p>
                 <ul className="actions">
                   <li>
-                    <Link to="/generic" className="button">
+                    <Link to="/" className="button">
                       Learn More
                     </Link>
                   </li>
@@ -98,7 +98,7 @@ class Index extends React.Component {
             <footer className="major">
               <ul className="actions">
                 <li>
-                  <Link to="/generic" className="button">
+                  <Link to="/" className="button">
                     Learn More
                   </Link>
                 </li>
@@ -139,27 +139,44 @@ class Index extends React.Component {
               </li>
             </ul>
             <p className="content">
-              Nam elementum nisl et mi a commodo porttitor. Morbi sit amet nisl
-              eu arcu faucibus hendrerit vel a risus. Nam a orci mi, elementum
-              ac arcu sit amet, fermentum pellentesque et purus. Integer maximus
-              varius lorem, sed convallis diam accumsan sed. Etiam porttitor
-              placerat sapien, sed eleifend a enim pulvinar faucibus semper quis
-              ut arcu. Ut non nisl a mollis est efficitur vestibulum. Integer
-              eget purus nec nulla mattis et accumsan ut magna libero. Morbi
-              auctor iaculis porttitor. Sed ut magna ac risus et hendrerit
-              scelerisque. Praesent eleifend lacus in lectus aliquam porta. Cras
-              eu ornare dui curabitur lacinia.
+              GraphQL is one of the hottest, most talked about technologies today. The basic idea is that instead of querying and maintaining multiple REST endpoints, you have a single endpoint which you can use to query anything you require. 
+              
+              This makes developing on the Front-End and the Back-End so much faster - A Front-End developer can easily change their GraphQL query to include additional fields without having to bother a Back-End developer into editing their REST endpoint.
             </p>
             <footer className="major">
               <ul className="actions">
                 <li>
-                  <Link to="/generic" className="button">
+                  <Link to="/" className="button">
                     Learn More
                   </Link>
                 </li>
               </ul>
             </footer>
           </section>
+
+          <section id="cta" className="main special">
+            <header className="major">
+              <h2>Graph Ghost Plugin - Coming Very Soon!</h2>
+            </header>
+            <footer className="major">
+              <ul className="actions">
+                <li>
+                  <p>Watch this space.</p>
+                </li>
+              </ul>
+            </footer>
+          </section>
+
+        </div>
+      </Layout>
+    )
+  }
+}
+
+export default Index
+
+/*
+  BOTTOM BLURB WHEN SITE IS LIVE
 
           <section id="cta" className="main special">
             <header className="major">
@@ -176,10 +193,6 @@ class Index extends React.Component {
               </ul>
             </footer>
           </section>
-        </div>
-      </Layout>
-    )
-  }
-}
 
-export default Index
+
+*/
