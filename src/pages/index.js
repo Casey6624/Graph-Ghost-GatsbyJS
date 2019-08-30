@@ -143,6 +143,9 @@ class Index extends React.Component {
               
               This makes developing on the Front-End and the Back-End so much faster - A Front-End developer can easily change their GraphQL query to include additional fields without having to bother a Back-End developer into editing their REST endpoint.
             </p>
+            <p>
+              For more information, you can dive deeper into the Graph Docs here - <a href="https://graphql.org/learn/">https://graphql.org/learn/</a>
+            </p>
             <footer className="major">
               <ul className="actions">
                 <li>
