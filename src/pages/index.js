@@ -107,12 +107,8 @@ class Index extends React.Component {
           <section id="second" className="main special">
             <header className="major">
               <h2>What is GraphQL?</h2>
-              <p>
-                A strong and sturdy API for all of your business needs.
-              </p>
-              <p>
-                
-              </p>
+              <p>A strong and sturdy API for all of your business needs.</p>
+              <p></p>
             </header>
             <ul className="statistics">
               <li className="style1">
@@ -137,12 +133,21 @@ class Index extends React.Component {
               </li>
             </ul>
             <p className="content">
-              GraphQL is one of the hottest, most talked about technologies today. The basic idea is that instead of querying and maintaining multiple REST endpoints, you have a single endpoint which you can use to query anything you require. 
-              
-              This makes developing on the Front-End and the Back-End so much faster - A Front-End developer can easily change their GraphQL query to include additional fields without having to bother a Back-End developer into editing their REST endpoint.
+              GraphQL is one of the hottest, most talked about technologies
+              today. The basic idea is that instead of querying and maintaining
+              multiple REST endpoints, you have a single endpoint which you can
+              use to query anything you require. This makes developing on the
+              Front-End and the Back-End so much faster - A Front-End developer
+              can easily change their GraphQL query to include additional fields
+              without having to bother a Back-End developer into editing their
+              REST endpoint.
             </p>
             <p>
-              For more information, you can dive deeper into the Graph Docs here - <a href="https://graphql.org/learn/">https://graphql.org/learn/</a>
+              For more information, you can dive deeper into the Graph Docs here
+              -{' '}
+              <a href="https://graphql.org/learn/">
+                https://graphql.org/learn/
+              </a>
             </p>
             <footer className="major">
               <ul className="actions">
@@ -164,10 +169,16 @@ class Index extends React.Component {
                 <li>
                   <p>Watch this space.</p>
                 </li>
+                <br />
+                <li>
+                  <h2>Already Created an API? Click Below!</h2>
+                  <Link to="/find" className="button">
+                    Find My API
+                  </Link>
+                </li>
               </ul>
             </footer>
           </section>
-
         </div>
       </Layout>
     )
