@@ -35,10 +35,12 @@ export default function Find(props) {
         <section id="intro" className="main">
           <div className="spotlight">
             <div className="content">
-              <h2>Don't have an API yet? Click below to go back home.</h2>
-              <Link to="/" className="button">
-                Go Back Home
-              </Link>
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <h2>Don't have an API yet? Click below to go back home.</h2>
+                <Link to="/" className="button">
+                  Go Back Home
+                </Link>
+              </div>
               <header className="major">
                 <h2>Find my API!</h2>
                 <p>
@@ -66,9 +68,6 @@ export default function Find(props) {
                 <input type="submit" value="Find My API!" />
               </form>
             </div>
-            <span className="image" id="imageNoBorder">
-              <img src={Ghost} alt="GraphGhost" />
-            </span>
           </div>
         </section>
       </div>
