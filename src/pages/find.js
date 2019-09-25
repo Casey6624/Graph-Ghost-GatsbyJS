@@ -6,18 +6,47 @@ import Header from '../components/Header'
 import Ghost from '../assets/images/graph.svg'
 
 export default function Find(props) {
+  const graphQLEndpoint = 'http://localhost:4500/graphql'
   const [emailAddress, setEmailAddress] = useState('')
   const [retrievalCode, setRetrievalCode] = useState('')
 
   function submitForm(e) {
     e.preventDefault()
-    console.log(`Email: ${emailAddress}`)
-    console.log(`RC: ${retrievalCode}`)
+
+    const requestBody = {
+      query: `
+    query {
+      findCode(email: "casey@test.com", retrievalCode:"kjsisjisjisjs"){
+        generatedCode
+        retrievalCode
+        createdAt
+        updatedAt
+      }
+    }`,
+    }
+    fetch(graphQLEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(requestBody),
+    })
+      .then(res => {
+        if (res.status !== 200 && res.status !== 201) {
+          throw new Error('Failed!')
+        }
+        return res.json()
+      })
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   function formUpdateHandler({ target }) {
-    const { name, value } = target
+    let { name, value } = target
 
+    value = value.trim()
     if (name === 'email') {
       setEmailAddress(value)
     }
