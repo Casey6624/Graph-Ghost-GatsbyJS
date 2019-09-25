@@ -1,28 +1,47 @@
+// Libraries
 import React, { useState } from 'react'
 import { Link } from 'gatsby'
 import Helmet from 'react-helmet'
+// Components
 import Layout from '../components/layout'
 import Header from '../components/Header'
-import Ghost from '../assets/images/graph.svg'
+import Ghost from '../assets/images/ghost.svg'
+// Hooks
+import useInterval from '../hooks/useInterval'
+
+import ChangeableGhost from '../components/ChangeableGhost'
+
+import './find.css'
 
 export default function Find(props) {
   const graphQLEndpoint = 'http://localhost:4500/graphql'
   const [emailAddress, setEmailAddress] = useState('')
   const [retrievalCode, setRetrievalCode] = useState('')
+  const [error, setError] = useState(null)
+  const [activeField, setActiveField] = useState(1)
+
+  function handleFieldChange({ target }) {
+    if (target.name === 'email') {
+      setActiveField(1)
+    }
+    if (target.name === 'retrieval') {
+      setActiveField(2)
+    }
+  }
 
   function submitForm(e) {
     e.preventDefault()
 
     const requestBody = {
       query: `
-    query {
-      findCode(email: "casey@test.com", retrievalCode:"kjsisjisjisjs"){
-        generatedCode
-        retrievalCode
-        createdAt
-        updatedAt
-      }
-    }`,
+        query {
+          findCode(email: "${emailAddress}", retrievalCode:"${retrievalCode}"){
+            generatedCode
+            retrievalCode
+            createdAt
+            updatedAt
+          }
+        }`,
     }
     fetch(graphQLEndpoint, {
       method: 'POST',
@@ -31,7 +50,7 @@ export default function Find(props) {
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
-          throw new Error('Failed!')
+          throw new Error('Could not find that combination')
         }
         return res.json()
       })
@@ -39,13 +58,13 @@ export default function Find(props) {
         console.log(data)
       })
       .catch(err => {
-        console.log(err)
+        setError(err)
       })
   }
 
   function formUpdateHandler({ target }) {
+    setError(null)
     let { name, value } = target
-
     value = value.trim()
     if (name === 'email') {
       setEmailAddress(value)
@@ -77,25 +96,36 @@ export default function Find(props) {
                   pull your API right up.
                 </p>
               </header>
-              <form onSubmit={submitForm}>
-                <input
-                  type="email"
-                  required
-                  placeholder="Email Address"
-                  name="email"
-                  onChange={e => formUpdateHandler(e)}
+              <div className={`formContainer${activeField}`}>
+                <form onSubmit={submitForm} className="findForm">
+                  <input
+                    type="email"
+                    required
+                    placeholder="Email Address"
+                    name="email"
+                    onClick={e => handleFieldChange(e)}
+                    onSelect={e => handleFieldChange(e)}
+                    onChange={e => formUpdateHandler(e)}
+                  />
+                  <br />
+                  <input
+                    type="text"
+                    required
+                    name="retrieval"
+                    placeholder="Retrieval Code"
+                    onClick={e => handleFieldChange(e)}
+                    onSelect={e => handleFieldChange(e)}
+                    onChange={e => formUpdateHandler(e)}
+                  />
+                  <br />
+                  <input type="submit" value="Find My API!" />
+                </form>
+                <ChangeableGhost
+                  error={error}
+                  emailAddress={emailAddress}
+                  retrievalCode={retrievalCode}
                 />
-                <br />
-                <input
-                  type="text"
-                  required
-                  name="retrieval"
-                  placeholder="Retrieval Code"
-                  onChange={e => formUpdateHandler(e)}
-                />
-                <br />
-                <input type="submit" value="Find My API!" />
-              </form>
+              </div>
             </div>
           </div>
         </section>

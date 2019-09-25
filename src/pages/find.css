@@ -1,0 +1,16 @@
+.formContainer1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.formContainer2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.findForm {
+  flex-basis: 80%;
+  align-items: center;
+}
