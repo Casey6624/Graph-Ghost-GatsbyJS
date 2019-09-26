@@ -58,7 +58,7 @@ export default function Find(props) {
         console.log(data)
       })
       .catch(err => {
-        setError(err)
+        setError(err.message)
       })
   }
 
@@ -126,6 +126,12 @@ export default function Find(props) {
                   retrievalCode={retrievalCode}
                 />
               </div>
+              {error ? (
+                <p className="errorForm">
+                  {' '}
+                  <span id="oops">Ooops!</span> {error}
+                </p>
+              ) : null}
             </div>
           </div>
         </section>

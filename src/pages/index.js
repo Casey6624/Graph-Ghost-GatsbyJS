@@ -173,7 +173,9 @@ class Index extends React.Component {
                 <li>
                   <h2>Already Created an API? Click Below!</h2>
                   <Link to="/find" className="button">
-                    Find My API
+                    <span className="icon style1 fa-search"></span>
+                    &nbsp;
+                    <span>Find My API</span>
                   </Link>
                 </li>
               </ul>
