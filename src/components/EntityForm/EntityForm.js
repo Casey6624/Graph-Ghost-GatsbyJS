@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import AttributeForm from './AttributeForm'
 import './EntityForm.css'
 
 export default function EntityForm(props) {
@@ -18,6 +19,15 @@ export default function EntityForm(props) {
             onClick={e => handleClickEvent(e)}
           ></span>
         </div>
+        <form>
+          <label for="EntityTitle">
+            Entity Title
+            <input type="text" name="EntityTitle"></input>
+          </label>
+          <div className="AttributeMasterContainer">
+            <AttributeForm />
+          </div>
+        </form>
       </div>
     )
   }

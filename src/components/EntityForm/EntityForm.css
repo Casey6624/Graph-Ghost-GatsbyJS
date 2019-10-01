@@ -5,7 +5,6 @@
   padding: 1rem;
   margin: 1rem;
   border-radius: 1rem;
-  width: 80%;
   text-align: center;
 }
 
@@ -39,7 +38,6 @@
   padding: 1rem;
   margin: 1rem;
   border-radius: 1rem;
-  width: 80%;
 }
 
 #EntityClose {
@@ -53,4 +51,14 @@
 .EntityFormActiveTitleAndControl {
   display: flex;
   justify-content: flex-end;
+}
+
+.attributeContainer {
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.AttributeMasterContainer {
+  display: flex;
 }
