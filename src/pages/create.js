@@ -6,7 +6,7 @@ import Helmet from 'react-helmet'
 import Layout from '../components/layout'
 import Header from '../components/Header'
 import Ghost from '../assets/images/ghost.svg'
-import EntityForm from '../components/EntityForm'
+import EntityForm from '../components/EntityForm/EntityForm'
 // Hooks
 
 export default function Create(props) {

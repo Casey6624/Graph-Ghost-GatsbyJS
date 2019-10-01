@@ -1,0 +1,56 @@
+/* INACTIVE CSS*/
+
+.EntityFormContainer {
+  background: #f2f2f2;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 1rem;
+  width: 80%;
+  text-align: center;
+}
+
+.EntityFormContainer:hover > #EntityAdd {
+  font-size: 4rem;
+}
+
+.EntityFormContainer:hover {
+  cursor: pointer;
+  background: #935d8c;
+}
+
+.EntityFormContainer:hover > .EntityFormInctive h3 {
+  color: white !important;
+}
+
+.EntityFormInctive {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#EntityAdd {
+  font-size: 3rem;
+}
+
+/* ACTIVE CSS */
+
+.EntityFormContainerActive {
+  background: #f2f2f2;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 1rem;
+  width: 80%;
+}
+
+#EntityClose {
+  font-size: 2rem;
+}
+
+#EntityClose:hover {
+  cursor: pointer;
+}
+
+.EntityFormActiveTitleAndControl {
+  display: flex;
+  justify-content: flex-end;
+}
