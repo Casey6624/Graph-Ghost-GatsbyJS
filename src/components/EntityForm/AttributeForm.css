@@ -1,0 +1,12 @@
+.attributeInactive {
+  background: white;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.attributeInactive:hover {
+  cursor: pointer;
+  background: #935d8c;
+}

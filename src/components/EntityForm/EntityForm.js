@@ -4,6 +4,18 @@ import './EntityForm.css'
 
 export default function EntityForm(props) {
   const [status, setStatus] = useState(false)
+  const [attributes, setAttributes] = useState([
+    { attributeName: '', dataType: '' },
+  ])
+
+  if (
+    attributes[attributes.length - 1].attributeName !== '' &&
+    attributes[attributes.length - 1].dataType !== ''
+  ) {
+    let tempAttributes = [...attributes]
+    tempAttributes.push({ attributeName: '', dataType: '' })
+    setAttributes(tempAttributes)
+  }
 
   function handleClickEvent(e) {
     setStatus(!status)
@@ -25,7 +37,9 @@ export default function EntityForm(props) {
             <input type="text" name="EntityTitle"></input>
           </label>
           <div className="AttributeMasterContainer">
-            <AttributeForm />
+            {attributes.map((el, index) => (
+              <AttributeForm indexNumber={attributes.length} />
+            ))}
           </div>
         </form>
       </div>
