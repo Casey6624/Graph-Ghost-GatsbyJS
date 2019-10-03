@@ -15,7 +15,7 @@ export default function({ value, onChange }) {
   // handle the dynamic change of form elements
 
   function handleFormChange({ target }) {
-    // destructure the values and the names
+    // destructure the value and name from DOM element
     const { name, value } = target
     console.log(`Name: ${name} Value: ${value}`)
     if (name === 'attributeName') {
