@@ -30,7 +30,19 @@ export default function({ setData }) {
   function handleSubmit(e) {
     if (attributeName.trim() !== '' && attributeDataType.trim() !== '') {
       setData({ attributeName: attributeName, dataType: attributeDataType })
+      setStatus('COMPLETE')
     }
+  }
+
+  if (status === 'COMPLETE') {
+    return (
+      <div className="attributeComplete" onClick={e => handleClickEvent(e)}>
+        <h3>
+          Attribute <strong>{attributeName}</strong> Added!
+        </h3>
+        <span className="icon style2 fa-check" id="EntityClose"></span>
+      </div>
+    )
   }
 
   if (!status) {
