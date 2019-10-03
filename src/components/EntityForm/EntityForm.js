@@ -5,24 +5,27 @@ import './EntityForm.css'
 
 export default function EntityForm(props) {
   const [status, setStatus] = useState(false)
-  const [attributes, setAttributes] = useState([
-    { attributeName: '', dataType: '' },
-  ])
+  const [attributes, setAttributes] = useState({})
 
   const createFormContext = useContext(CreateFormContext)
 
-  if (
-    attributes[attributes.length - 1].attributeName !== '' &&
-    attributes[attributes.length - 1].dataType !== ''
-  ) {
-    let tempAttributes = [...attributes]
-    tempAttributes.push({ attributeName: '', dataType: '' })
-    setAttributes(...tempAttributes)
-  }
-
+  // toggle adding new attribute
   function handleClickEvent(e) {
     setStatus(!status)
   }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    if (e.target.EntityTitle.value === '') {
+      console.log('Please enter a title!')
+      // TODO: Add error pop up later
+      return
+    }
+    console.log(
+      `Entity: ${e.target.EntityTitle.value} Created with the attributes ${attributes.dataType} ${attributes.attributeName}`
+    )
+  }
+
   // Shows when editing/adding a new Entity
   if (status) {
     return (
@@ -34,15 +37,16 @@ export default function EntityForm(props) {
             onClick={e => handleClickEvent(e)}
           ></span>
         </div>
-        <form>
+        <form onSubmit={e => handleSubmit(e)}>
           <label htmlFor="EntityTitle">
             Entity Title
             <input type="text" name="EntityTitle"></input>
           </label>
           <div className="AttributeMasterContainer">
-            {attributes.map((el, index) => (
-              <AttributeForm />
-            ))}
+            {/* attributes.map((el, index) => (
+              <AttributeForm data={}/>
+            )) */}
+            <AttributeForm setData={setAttributes} />
           </div>
           <input type="submit" value="Save Entity"></input>
         </form>

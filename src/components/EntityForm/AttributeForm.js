@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react'
 
 import './AttributeForm.css'
 
-export default function({ value, onChange }) {
+export default function({ setData }) {
   const [status, setStatus] = useState(false)
   const [attributeName, setAttributeName] = useState('')
   const [attributeDataType, setAttributeDataType] = useState('')
@@ -17,7 +17,6 @@ export default function({ value, onChange }) {
   function handleFormChange({ target }) {
     // destructure the value and name from DOM element
     const { name, value } = target
-    console.log(`Name: ${name} Value: ${value}`)
     if (name === 'attributeName') {
       setAttributeName(value)
     } else if (name === 'attributeDataType') {
@@ -29,7 +28,9 @@ export default function({ value, onChange }) {
   // Store form elements in state
 
   function handleSubmit(e) {
-    console.log(attributeName, attributeDataType)
+    if (attributeName.trim() !== '' && attributeDataType.trim() !== '') {
+      setData({ attributeName: attributeName, dataType: attributeDataType })
+    }
   }
 
   if (!status) {
