@@ -17,7 +17,7 @@ export default function EntityForm(props) {
   ) {
     let tempAttributes = [...attributes]
     tempAttributes.push({ attributeName: '', dataType: '' })
-    setAttributes(tempAttributes)
+    setAttributes(...tempAttributes)
   }
 
   function handleClickEvent(e) {
@@ -35,15 +35,16 @@ export default function EntityForm(props) {
           ></span>
         </div>
         <form>
-          <label for="EntityTitle">
+          <label htmlFor="EntityTitle">
             Entity Title
             <input type="text" name="EntityTitle"></input>
           </label>
           <div className="AttributeMasterContainer">
             {attributes.map((el, index) => (
-              <AttributeForm indexNumber={attributes.length} />
+              <AttributeForm />
             ))}
           </div>
+          <input type="submit" value="Save Entity"></input>
         </form>
       </div>
     )
