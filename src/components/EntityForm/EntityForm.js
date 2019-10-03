@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import AttributeForm from './AttributeForm'
+import CreateFormContext from '../../context/CreateFormContext'
 import './EntityForm.css'
 
 export default function EntityForm(props) {
@@ -7,6 +8,8 @@ export default function EntityForm(props) {
   const [attributes, setAttributes] = useState([
     { attributeName: '', dataType: '' },
   ])
+
+  const createFormContext = useContext(CreateFormContext)
 
   if (
     attributes[attributes.length - 1].attributeName !== '' &&
