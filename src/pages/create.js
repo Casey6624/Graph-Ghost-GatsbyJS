@@ -7,7 +7,8 @@ import Layout from '../components/layout'
 import Header from '../components/Header'
 import Ghost from '../assets/images/ghost.svg'
 import EntityForm from '../components/EntityForm/EntityForm'
-// Hooks
+// Context
+import CreateFormContext from '../context/CreateFormContext'
 
 export default function Create(props) {
   return (
@@ -31,9 +32,15 @@ export default function Create(props) {
                 <h2>Create Your API!</h2>
                 <p>Lets Get Started.</p>
               </header>
-              <div className="creationContainer">
-                <EntityForm />
-              </div>
+              <CreateFormContext.Provider
+                value={{
+                  Entities: [],
+                }}
+              >
+                <div className="creationContainer">
+                  <EntityForm />
+                </div>
+              </CreateFormContext.Provider>
             </div>
           </div>
         </section>

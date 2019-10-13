@@ -1,11 +1,12 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import AttributeForm from './AttributeForm'
 import CreateFormContext from '../../context/CreateFormContext'
 import './EntityForm.css'
 
 export default function EntityForm(props) {
   const [status, setStatus] = useState(false)
-  const [attributes, setAttributes] = useState({})
+  const [attributes, setAttributes] = useState([])
+  const [tempAttribute, setTempAttribute] = useState(null)
 
   const createFormContext = useContext(CreateFormContext)
 
@@ -14,6 +15,13 @@ export default function EntityForm(props) {
     setStatus(!status)
   }
 
+  useEffect(() => {
+    if (tempAttribute === null) return
+    attributes.push(tempAttribute)
+    setTempAttribute(null)
+    console.log(attributes)
+  }, tempAttribute)
+
   function handleSubmit(e) {
     e.preventDefault()
     if (e.target.EntityTitle.value === '') {
@@ -21,9 +29,8 @@ export default function EntityForm(props) {
       // TODO: Add error pop up later
       return
     }
-    console.log(
-      `Entity: ${e.target.EntityTitle.value} Created with the attributes ${attributes.dataType} ${attributes.attributeName}`
-    )
+    createFormContext.Entities.push([e.target.EntityTitle.value, attributes])
+    console.log(createFormContext.Entities)
   }
 
   // Shows when editing/adding a new Entity
@@ -50,7 +57,9 @@ export default function EntityForm(props) {
             {/* attributes.map((el, index) => (
               <AttributeForm data={}/>
             )) */}
-            <AttributeForm setData={setAttributes} />
+            <AttributeForm setData={setTempAttribute} />
+            <AttributeForm setData={setTempAttribute} />
+            <AttributeForm setData={setTempAttribute} />
           </div>
           <input type="submit" value="Save Entity"></input>
         </form>

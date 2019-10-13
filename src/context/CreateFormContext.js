@@ -1,7 +1,7 @@
 import { createContext } from 'react'
 
 const CreateFormContext = createContext({
-  Entities: null,
+  Entities: [],
 })
 
 export default CreateFormContext

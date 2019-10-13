@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useContext } from 'react'
 
 import './AttributeForm.css'
 
@@ -32,6 +32,7 @@ export default function({ setData }) {
       setData({ attributeName: attributeName, dataType: attributeDataType })
       setStatus('COMPLETE')
     }
+    // TODO: Add validation to check fields if the validation fails
   }
 
   if (status === 'COMPLETE') {
