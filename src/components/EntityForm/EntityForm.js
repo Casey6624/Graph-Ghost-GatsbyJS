@@ -40,7 +40,11 @@ export default function EntityForm(props) {
         <form onSubmit={e => handleSubmit(e)}>
           <label htmlFor="EntityTitle">
             Entity Title
-            <input type="text" name="EntityTitle"></input>
+            <input
+              type="text"
+              name="EntityTitle"
+              placeholder="E.g Product"
+            ></input>
           </label>
           <div className="AttributeMasterContainer">
             {/* attributes.map((el, index) => (

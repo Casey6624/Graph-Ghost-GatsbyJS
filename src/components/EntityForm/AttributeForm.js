@@ -36,7 +36,7 @@ export default function({ setData }) {
 
   if (status === 'COMPLETE') {
     return (
-      <div className="attributeComplete" onClick={e => handleClickEvent(e)}>
+      <div className="attributeComplete">
         <h3>
           Attribute <strong>{attributeName}</strong> Added!
         </h3>
@@ -58,26 +58,46 @@ export default function({ setData }) {
       <div className="attributeContainer">
         <label htmlFor="AttributeName">
           Attribute 1
-          <input
-            type="text"
-            onChange={e => handleFormChange(e)}
-            name="attributeName"
-            placeholder="Attribute 1 Name"
-            className="inline-form-item"
-          ></input>
-          <select
-            className="inline-form-item"
-            name="attributeDataType"
-            onChange={e => handleFormChange(e)}
-          >
-            <option defaultChecked disabled required>
-              Select Data Type
-            </option>
-            <option name="string">String</option>
-            <option name="int">Int</option>
-            <option name="date">Date</option>
-            <option name="bool">Bool</option>
-          </select>
+          <div className="basicFlex">
+            <input
+              type="text"
+              onChange={e => handleFormChange(e)}
+              name="attributeName"
+              placeholder="E.g Price"
+              className="inline-form-item"
+            ></input>
+            <span
+              className={
+                attributeName !== ''
+                  ? 'icon style2 fa-check-circle'
+                  : 'icon style2 fa-times-circle'
+              }
+              id="validationIcons"
+            ></span>
+          </div>
+          <div className="basicFlex">
+            <select
+              className="inline-form-item"
+              name="attributeDataType"
+              onChange={e => handleFormChange(e)}
+            >
+              <option defaultChecked disabled required>
+                Select Data Type
+              </option>
+              <option name="string">String</option>
+              <option name="int">Int</option>
+              <option name="date">Date</option>
+              <option name="bool">Bool</option>
+            </select>
+            <span
+              className={
+                attributeDataType !== ''
+                  ? 'icon style2 fa-check-circle'
+                  : 'icon style2 fa-times-circle'
+              }
+              id="validationIcons"
+            ></span>
+          </div>
           <br />
           <div
             className="button"
@@ -88,7 +108,7 @@ export default function({ setData }) {
             }}
             onClick={e => handleSubmit(e)}
           >
-            Save Attribute{' '}
+            Save Attribute
             <span className="icon style2 fa-save" id="EntityClose"></span>
           </div>
         </label>

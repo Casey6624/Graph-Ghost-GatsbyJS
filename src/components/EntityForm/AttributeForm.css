@@ -18,3 +18,15 @@
   border-radius: 1rem;
   text-align: center;
 }
+
+.basicFlex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.2rem;
+}
+
+#validationIcons {
+  font-size: 2rem;
+  margin: 0.2rem;
+}
