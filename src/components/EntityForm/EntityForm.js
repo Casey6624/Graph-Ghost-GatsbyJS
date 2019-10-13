@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect, Fragment } from 'react'
 import AttributeForm from './AttributeForm'
 import CreateFormContext from '../../context/CreateFormContext'
+import CompletedEntity from '../EntityForm/CompletedEntity'
 import './EntityForm.css'
 
 export default function EntityForm({ indexKey }) {
@@ -35,11 +36,7 @@ export default function EntityForm({ indexKey }) {
   }
 
   if (status === 'Complete') {
-    return (
-      <Fragment>
-        <h3>Entity is complete! Feel free to add another :)</h3>
-      </Fragment>
-    )
+    return <CompletedEntity indexKey={indexKey} />
   }
 
   // Shows when editing/adding a new Entity
