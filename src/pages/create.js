@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'gatsby'
 import Helmet from 'react-helmet'
 // Components
@@ -11,6 +11,20 @@ import EntityForm from '../components/EntityForm/EntityForm'
 import CreateFormContext from '../context/CreateFormContext'
 
 export default function Create(props) {
+  const [attributeForms, setAttributeForms] = useState([true])
+
+  const createFormContext = useContext(CreateFormContext)
+
+  function addNewForm() {
+    if (createFormContext.Entities.length !== attributeForms.length - 1) {
+      console.log('please save/discard the existing Attribute form first!')
+      return
+    }
+    const oldForms = [...attributeForms]
+    oldForms.push(true)
+    setAttributeForms(oldForms)
+  }
+
   return (
     <Layout>
       <Helmet title="Graph Ghost! 👻" />
@@ -38,7 +52,12 @@ export default function Create(props) {
                 }}
               >
                 <div className="creationContainer">
-                  <EntityForm />
+                  {attributeForms.map((form, index) => (
+                    <EntityForm key={index} indexKey={index} />
+                  ))}
+                  <span onClick={() => addNewForm()} className="button">
+                    Add an Additional Entity
+                  </span>
                 </div>
               </CreateFormContext.Provider>
             </div>

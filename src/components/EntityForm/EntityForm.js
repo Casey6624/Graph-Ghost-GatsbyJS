@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect, Fragment } from 'react'
 import AttributeForm from './AttributeForm'
 import CreateFormContext from '../../context/CreateFormContext'
 import './EntityForm.css'
 
-export default function EntityForm(props) {
+export default function EntityForm({ indexKey }) {
   const [status, setStatus] = useState(false)
   const [attributes, setAttributes] = useState([])
   const [tempAttribute, setTempAttribute] = useState(null)
@@ -30,20 +30,32 @@ export default function EntityForm(props) {
       return
     }
     createFormContext.Entities.push([e.target.EntityTitle.value, attributes])
+    setStatus('Complete')
     console.log(createFormContext.Entities)
   }
 
+  if (status === 'Complete') {
+    return (
+      <Fragment>
+        <h3>Entity is complete! Feel free to add another :)</h3>
+      </Fragment>
+    )
+  }
+
   // Shows when editing/adding a new Entity
-  if (status) {
+  if (status === true) {
     return (
       <div className="EntityFormContainerActive">
         <div className="EntityFormActiveTitleAndControl">
-          <span
-            className="icon style2 fa-close"
-            id="EntityClose"
-            onClick={e => handleClickEvent(e)}
-          ></span>
+          {indexKey === 0 ? null : (
+            <span
+              className="icon style2 fa-close"
+              id="EntityClose"
+              onClick={e => handleClickEvent(e)}
+            ></span>
+          )}
         </div>
+        <h2>Entity {indexKey + 1}</h2>
         <form onSubmit={e => handleSubmit(e)}>
           <label htmlFor="EntityTitle">
             Entity Title
@@ -54,9 +66,6 @@ export default function EntityForm(props) {
             ></input>
           </label>
           <div className="AttributeMasterContainer">
-            {/* attributes.map((el, index) => (
-              <AttributeForm data={}/>
-            )) */}
             <AttributeForm setData={setTempAttribute} />
             <AttributeForm setData={setTempAttribute} />
             <AttributeForm setData={setTempAttribute} />
