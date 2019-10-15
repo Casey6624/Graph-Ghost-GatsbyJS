@@ -42,6 +42,19 @@ export default function Create(props) {
     if (createFormContext.Entities.length === 0) {
       setWarning('⚠️ You must add at least one entity before submitting!')
     }
+    console.log(createFormContext.Entities)
+    fetch('http://localhost:4500/codeSubmit', {
+      method: 'POST',
+      body: JSON.stringify(...createFormContext.Entities),
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(res => {
+        setWarning('✔️ Your entities have been sent to the server')
+        console.log(createFormContext.Entities)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   return (

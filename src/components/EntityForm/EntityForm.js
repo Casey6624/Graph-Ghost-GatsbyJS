@@ -20,7 +20,6 @@ export default function EntityForm({ indexKey }) {
     if (tempAttribute === null) return
     attributes.push(tempAttribute)
     setTempAttribute(null)
-    console.log(attributes)
   }, tempAttribute)
 
   function handleSubmit(e) {
@@ -32,7 +31,6 @@ export default function EntityForm({ indexKey }) {
     }
     createFormContext.Entities.push([e.target.EntityTitle.value, attributes])
     setStatus('Complete')
-    console.log(createFormContext.Entities)
   }
 
   if (status === 'Complete') {
