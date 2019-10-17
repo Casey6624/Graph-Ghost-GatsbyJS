@@ -29,7 +29,11 @@ export default function EntityForm({ indexKey }) {
       // TODO: Add error pop up later
       return
     }
-    createFormContext.Entities.push([e.target.EntityTitle.value, attributes])
+    const oldEntities = [...createFormContext.allEntities]
+    console.log('old entities: ', oldEntities)
+    oldEntities.push([e.target.EntityTitle.value, attributes])
+    createFormContext.setAllEntities(oldEntities)
+    //createFormContext.Entities.push([e.target.EntityTitle.value, attributes])
     setStatus('Complete')
   }
 

@@ -18,6 +18,8 @@ export default function Create(props) {
   const [attributeForms, setAttributeForms] = useState([true])
   const [warning, setWarning] = useState(null)
 
+  const [allEntities, setAllEntities] = useState([])
+
   const createFormContext = useContext(CreateFormContext)
 
   useEffect(() => {
@@ -27,6 +29,10 @@ export default function Create(props) {
       setWarning(null)
     }, 2500)
   }, [warning])
+
+  useEffect(() => {
+    console.log(allEntities)
+  }, [allEntities])
 
   function addNewForm() {
     if (createFormContext.Entities.length !== attributeForms.length - 1) {
@@ -81,6 +87,8 @@ export default function Create(props) {
               <CreateFormContext.Provider
                 value={{
                   Entities: [],
+                  setAllEntities: entity => setAllEntities(entity),
+                  allEntities: [],
                 }}
               >
                 <div className="creationContainer">
