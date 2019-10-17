@@ -35,7 +35,7 @@ export default function Create(props) {
   }, [allEntities])
 
   function addNewForm() {
-    if (createFormContext.Entities.length !== attributeForms.length - 1) {
+    if (allEntities.length !== attributeForms.length) {
       setWarning('⚠️ Please Save/Discard the existing attribute form first!')
       return
     }
@@ -45,18 +45,18 @@ export default function Create(props) {
   }
 
   function sendToServer() {
-    if (createFormContext.Entities.length === 0) {
+    if (allEntities.length === 0) {
       setWarning('⚠️ You must add at least one entity before submitting!')
     }
-    console.log(createFormContext.Entities)
+
     fetch('http://localhost:4500/codeSubmit', {
       method: 'POST',
-      body: JSON.stringify(...createFormContext.Entities),
+      body: JSON.stringify(...allEntities),
       headers: { 'Content-Type': 'application/json' },
     })
       .then(res => {
         setWarning('✔️ Your entities have been sent to the server')
-        console.log(createFormContext.Entities)
+        console.log(allEntities)
       })
       .catch(err => {
         console.log(err)
@@ -86,9 +86,8 @@ export default function Create(props) {
               </header>
               <CreateFormContext.Provider
                 value={{
-                  Entities: [],
                   setAllEntities: entity => setAllEntities(entity),
-                  allEntities: [],
+                  allEntities: allEntities,
                 }}
               >
                 <div className="creationContainer">
