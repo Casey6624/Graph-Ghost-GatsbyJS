@@ -25,8 +25,8 @@ export default function Create(props) {
     if (warning === null) return
     timer = setTimeout(() => {
       setWarning(null)
-    }, 4000)
-  })
+    }, 2500)
+  }, [warning])
 
   function addNewForm() {
     if (createFormContext.Entities.length !== attributeForms.length - 1) {
