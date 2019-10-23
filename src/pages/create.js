@@ -17,6 +17,7 @@ export default function Create(props) {
 
   const [attributeForms, setAttributeForms] = useState([true])
   const [warning, setWarning] = useState(null)
+  const [serverResponse, setServerResponse] = useState(null)
 
   const [allEntities, setAllEntities] = useState([])
 
@@ -55,8 +56,10 @@ export default function Create(props) {
       headers: { 'Content-Type': 'application/json' },
     })
       .then(res => {
-        setWarning('✔️ Your entities have been sent to the server')
-        console.log(allEntities)
+        return res.json()
+      })
+      .then(data => {
+        console.log(data)
       })
       .catch(err => {
         console.log(err)
