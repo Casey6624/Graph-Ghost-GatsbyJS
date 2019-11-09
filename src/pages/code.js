@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useLayoutEffect } from 'react'
 import Helmet from 'react-helmet'
 
 import Layout from '../components/layout'
@@ -12,8 +12,18 @@ export default function Code(props) {
   const [creatorId, setCreatorId] = useState(null)
   const [fetchedData, setFetchedData] = useState(null)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let rawParams = props.location.search
+    if(!rawParams){
+      window.location = `/create`
+      return
+    }
+    /* AN EXAMPLE OF HOW THE URL LOOKS
+    `/code?codeId=${codeId}&creatorId=${creatorId}`
+
+    This should be a working example-
+    http://localhost:8000/code?codeId=5db07d6d9229df4b84878f43&creatorId=5d88bdea24f2aa181c649cd1
+    */
     setCodeId(rawParams.split('=')[1].split('&')[0])
     setCreatorId(rawParams.split('=')[2])
   }, [props])
@@ -21,20 +31,23 @@ export default function Code(props) {
   useEffect(() => {
     if (fetchedData) return
 
-    let requestBody = `query{
-      findCodeRedirect(creatorId: "${creatorId}", codeId: "${codeId}"){
+    const requestBody = `
+    query{
+      findCodeRedirect(codeId: "${codeId}", creatorId: "${creatorId}"){
         _id
         generatedCode
         retrievalCode
-        createdAt
-        updatedAt
       }
-    }`
-
-    fetch(GRAPHQL_URL, {
+    }
+    `
+    // might need to be set to the GRAPHQL_URL constnant in prod
+    fetch("/graphql", {
       method: 'POST',
       body: JSON.stringify(requestBody),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json' 
+       },
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
@@ -43,12 +56,14 @@ export default function Code(props) {
         return res.json()
       })
       .then(data => {
-        console.log('data: ', data)
+        console.log(data)
       })
       .catch(err => {
         console.log(err)
       })
   }, [codeId, creatorId])
+
+  if(!codeId || !creatorId) return <p>Loading...</p>
 
   return (
     <Layout>
