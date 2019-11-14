@@ -6,15 +6,16 @@ import HeaderCode from '../components/HeaderCode'
 import pic04 from '../assets/images/pic04.jpg'
 
 export default function Code(props) {
-  const GRAPHQL_URL = 'http://localhost:4500/graphql'
+  const graphQLEndpoint = 'http://localhost:4500/graphql'
 
   const [codeId, setCodeId] = useState(null)
   const [creatorId, setCreatorId] = useState(null)
   const [fetchedData, setFetchedData] = useState(null)
 
+  // Runs before painting the UI
   useLayoutEffect(() => {
     let rawParams = props.location.search
-    if(!rawParams){
+    if (!rawParams) {
       window.location = `/create`
       return
     }
@@ -31,22 +32,24 @@ export default function Code(props) {
   useEffect(() => {
     if (fetchedData) return
 
-    const requestBody = `query{
-      findCodeRedirect(codeId: "${codeId}", creatorId: "${creatorId}"){
-        _id
-        generatedCode
-        retrievalCode
+    const requestBody = {
+      query: `query{
+        findCodeRedirect(codeId: "${codeId}", creatorId: "${creatorId}"){
+          _id
+          generatedCode
+          retrievalCode
+        }
       }
+      `,
     }
-    `
     // might need to be set to the GRAPHQL_URL constnant in prod
-    fetch("/graphql", {
+    fetch(graphQLEndpoint, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
       body: JSON.stringify(requestBody),
-      headers: { 
-      'Content-Type': 'application/json',
-      'Accept': 'application/json' 
-       },
     })
       .then(res => {
         if (res.status !== 200 && res.status !== 201) {
@@ -62,7 +65,7 @@ export default function Code(props) {
       })
   }, [codeId, creatorId])
 
-  if(!codeId || !creatorId) return <p>Loading...</p>
+  if (!codeId || !creatorId) return <p>Loading...</p>
 
   return (
     <Layout>

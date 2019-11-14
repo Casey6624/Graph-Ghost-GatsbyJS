@@ -53,7 +53,9 @@ export default function Create(props) {
     fetch('http://localhost:4500/codeSubmit', {
       method: 'POST',
       body: JSON.stringify(allEntities),
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
     })
       .then(res => {
         return res.json()
