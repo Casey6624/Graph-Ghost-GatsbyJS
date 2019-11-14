@@ -6,11 +6,12 @@ import HeaderCode from '../components/HeaderCode'
 import pic04 from '../assets/images/pic04.jpg'
 
 export default function Code(props) {
-  const graphQLEndpoint = 'http://localhost:4500/graphql'
+  const GRAPHQL_ENDPOINT = 'http://localhost:4500/graphql'
 
   const [codeId, setCodeId] = useState(null)
   const [creatorId, setCreatorId] = useState(null)
-  const [fetchedData, setFetchedData] = useState(null)
+  const [rawCodeEntities, setRawCodeEntities] = useState(null)
+  const [errors, setErrors] = useState([])
 
   // Runs before painting the UI
   useLayoutEffect(() => {
@@ -19,18 +20,20 @@ export default function Code(props) {
       window.location = `/create`
       return
     }
-    /* AN EXAMPLE OF HOW THE URL LOOKS
-    `/code?codeId=${codeId}&creatorId=${creatorId}`
-
-    This should be a working example-
-    http://localhost:8000/code?codeId=5db07d6d9229df4b84878f43&creatorId=5d88bdea24f2aa181c649cd1
+    /* 
+    EXAMPLE: Working Code & Creator example 
+    URL: http://localhost:8000/code?codeId=5db07d6d9229df4b84878f43&creatorId=5d88bdea24f2aa181c649cd1
     */
     setCodeId(rawParams.split('=')[1].split('&')[0])
     setCreatorId(rawParams.split('=')[2])
   }, [props])
 
   useEffect(() => {
-    if (fetchedData) return
+    console.log(rawCodeEntities)
+  }, [rawCodeEntities])
+
+  useEffect(() => {
+    if (!codeId || !creatorId) return
 
     const requestBody = {
       query: `query{
@@ -43,7 +46,7 @@ export default function Code(props) {
       `,
     }
     // might need to be set to the GRAPHQL_URL constnant in prod
-    fetch(graphQLEndpoint, {
+    fetch(GRAPHQL_ENDPOINT, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -57,8 +60,11 @@ export default function Code(props) {
         }
         return res.json()
       })
-      .then(data => {
-        console.log(data)
+      .then(({ data }) => {
+        const { generatedCode, retrievalCode, creator } = data.findCodeRedirect
+        if (!generatedCode) {
+        }
+        setRawCodeEntities(JSON.parse(generatedCode))
       })
       .catch(err => {
         console.log(err)
