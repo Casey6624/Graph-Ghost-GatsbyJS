@@ -31,8 +31,7 @@ export default function Code(props) {
   useEffect(() => {
     if (fetchedData) return
 
-    const requestBody = `
-    query{
+    const requestBody = `query{
       findCodeRedirect(codeId: "${codeId}", creatorId: "${creatorId}"){
         _id
         generatedCode
