@@ -11,10 +11,9 @@ import EntityForm from '../components/EntityForm/EntityForm'
 import CreateFormContext from '../context/CreateFormContext'
 // Styling
 import './create.css'
+import TimedError from '../components/misc/TimedError'
 
 export default function Create(props) {
-  let timer
-
   const [attributeForms, setAttributeForms] = useState([true])
   const [warning, setWarning] = useState(null)
   const [serverResponse, setServerResponse] = useState(null)
@@ -22,14 +21,6 @@ export default function Create(props) {
   const [allEntities, setAllEntities] = useState([])
 
   const createFormContext = useContext(CreateFormContext)
-
-  useEffect(() => {
-    clearTimeout(timer)
-    if (warning === null) return
-    timer = setTimeout(() => {
-      setWarning(null)
-    }, 2500)
-  }, [warning])
 
   useEffect(() => {
     console.log(allEntities)
@@ -119,7 +110,7 @@ export default function Create(props) {
                       Create API!
                     </span>
                   </div>
-                  <p>{warning} </p>
+                  <TimedError warning={warning} setWarning={setWarning} />
                 </div>
               </CreateFormContext.Provider>
             </div>
