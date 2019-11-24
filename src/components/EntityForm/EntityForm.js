@@ -30,7 +30,6 @@ export default function EntityForm({ indexKey }) {
       return
     }
     const oldEntities = [...createFormContext.allEntities]
-    console.log('old entities: ', oldEntities)
     oldEntities.push([e.target.EntityTitle.value, attributes])
     createFormContext.setAllEntities(oldEntities)
     //createFormContext.Entities.push([e.target.EntityTitle.value, attributes])

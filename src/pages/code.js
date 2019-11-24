@@ -4,14 +4,13 @@ import Helmet from 'react-helmet'
 import Layout from '../components/layout'
 import HeaderCode from '../components/HeaderCode'
 import pic04 from '../assets/images/pic04.jpg'
+import './code.css'
 
 export default function Code(props) {
   const GRAPHQL_ENDPOINT = 'http://localhost:4500/graphql'
   // values decoded from the URL
   const [codeId, setCodeId] = useState(null)
   const [creatorId, setCreatorId] = useState(null)
-  // creatorID from server
-  const [serverCreatorID, setServerCreatorID] = useState(null)
   // retrieval code from the server
   const [retrieval, setRetrievalCode] = useState(null)
   // Parsed code from the API
@@ -33,13 +32,6 @@ export default function Code(props) {
     setCodeId(rawParams.split('=')[1].split('&')[0])
     setCreatorId(rawParams.split('=')[2])
   }, [props])
-
-  useEffect(() => {
-    console.log('rawCode', rawCodeEntities)
-    console.log('retrievalCode', retrieval)
-    console.log('creatorID From Server', serverCreatorID)
-    console.log('errors: Could be empty', errors)
-  }, [rawCodeEntities])
 
   useEffect(() => {
     if (!codeId || !creatorId || rawCodeEntities || retrieval) return
@@ -69,36 +61,10 @@ export default function Code(props) {
         }
         return res.json()
       })
-      .then(({ data }) => {
-        const {
-          generatedCode,
-          retrievalCode: serverRetrievalCode,
-          creator,
-        } = data.findCodeRedirect
-        if (!generatedCode) {
-          const tempErrors = [...errors]
-          tempErrors.push('No matching code could be pulled from the server!')
-          setErrors(tempErrors)
-        }
-        if (!serverRetrievalCode) {
-          const tempErrors = [...errors]
-          tempErrors.push(
-            'No matching retrieval code could be found by the server'
-          )
-          setErrors(tempErrors)
-        }
-        //TODO - ensure this is not firing by mistake. Maybe remove the creatorID alltogether as we are getting this from the URL anyway. CHECK RETRIEVAL IS SPELT RIGHT
-        if (!creator) {
-          const tempErrors = [...errors]
-          tempErrors.push(
-            'There was an issue with your creator account. Please try again later'
-          )
-          setErrors(tempErrors)
-        }
-        if (errors.length > 0) return // bail out of setting variables as they are undefined
-        setRawCodeEntities(JSON.parse(generatedCode))
-        setRetrievalCode(serverRetrievalCode)
-        setServerCreatorID(creator)
+      .then(resData => {
+        const { generatedCode, retrievalCode } = resData.data.findCodeRedirect
+        setRawCodeEntities(generatedCode)
+        setRetrievalCode(retrievalCode)
       })
       .catch(err => {
         console.log(err)
@@ -111,6 +77,9 @@ export default function Code(props) {
     <Layout>
       <Helmet title="Your Code!" />
       <HeaderCode />
+      <div className="retreivalCodeCard">
+        <h1>{retrieval}</h1>
+      </div>
       <div id="main">
         <section id="content" className="main">
           <span className="image main">

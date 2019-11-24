@@ -22,10 +22,6 @@ export default function Create(props) {
 
   const createFormContext = useContext(CreateFormContext)
 
-  useEffect(() => {
-    console.log(allEntities)
-  }, [allEntities])
-
   function addNewForm() {
     if (allEntities.length !== attributeForms.length) {
       setWarning('⚠️ Please Save/Discard the existing attribute form first!')
@@ -40,10 +36,15 @@ export default function Create(props) {
     if (allEntities.length === 0) {
       setWarning('⚠️ You must add at least one entity before submitting!')
     }
+    let dataToPost = [...allEntities]
+    console.log('dataToPost')
+    //console.log(dataToPost)
+    console.log(JSON.stringify({ data: dataToPost }))
+    dataToPost = JSON.stringify({ data: dataToPost })
 
     fetch('http://localhost:4500/codeSubmit', {
       method: 'POST',
-      body: JSON.stringify(allEntities),
+      body: dataToPost,
       headers: {
         'Content-Type': 'application/json',
       },
