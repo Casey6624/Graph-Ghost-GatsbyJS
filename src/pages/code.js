@@ -1,5 +1,7 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react'
+import React, { useEffect, useState, useLayoutEffect, useRef } from 'react'
 import Helmet from 'react-helmet'
+import prettier from 'prettier/standalone'
+import parserGraphql from 'prettier/parser-graphql'
 
 import Layout from '../components/layout'
 import HeaderCode from '../components/HeaderCode'
@@ -13,10 +15,15 @@ export default function Code(props) {
   const [creatorId, setCreatorId] = useState(null)
   // retrieval code from the server
   const [retrieval, setRetrievalCode] = useState(null)
-  // Parsed code from the API
+  // Parsed raw code from the API
   const [rawCodeEntities, setRawCodeEntities] = useState(null)
+  // Manipulated rawCode done on the Front-End
+  const [finishedCode, setFinishedCode] = useState('')
+  // PrettierFormattedCode - finishedCode which is ran through prettier package
+  const [prettierFormattedCode, setPrettierFormattedCode] = useState(null)
   // Error array which catches any issues with the pulled data from the server
   const [errors, setErrors] = useState([])
+  const retrievalRef = useRef(null)
 
   // Runs before painting the UI, redirect if no creatorID or codeID
   useLayoutEffect(() => {
@@ -27,12 +34,50 @@ export default function Code(props) {
     }
     /* 
     EXAMPLE: Working Code & Creator example 
-    URL: http://localhost:8000/code?codeId=5db07d6d9229df4b84878f43&creatorId=5d88bdea24f2aa181c649cd1
+    URL: http://localhost:8000/code?codeId=5dda9b2b9d988816a4eafc7d&creatorId=5d88bdea24f2aa181c649cd1
     */
     setCodeId(rawParams.split('=')[1].split('&')[0])
     setCreatorId(rawParams.split('=')[2])
   }, [props])
 
+  // format code blocks once rawCodeEntities is set. Loops through the rawCode and sticks the data into strings ready to be formatted by prettier.
+  useEffect(() => {
+    if (!rawCodeEntities) return
+
+    let concatString = ''
+
+    rawCodeEntities.data.forEach(([EntityName, Attributes]) => {
+      let formattedAttributes = ``
+
+      Attributes.forEach(({ attributeName, dataType }) => {
+        let temp = `${attributeName}: ${dataType}
+        `
+        formattedAttributes += temp
+      })
+
+      let tempStringEntity = `
+      type ${EntityName} {
+        _id: ID!
+        ${formattedAttributes}
+      }
+      `
+      concatString += tempStringEntity
+    })
+    console.log(concatString)
+    setFinishedCode(concatString)
+  }, [rawCodeEntities])
+
+  useEffect(() => {
+    console.log(prettierFormattedCode)
+    /* const test = prettier.format(prettierFormattedCode, {
+      parser: 'graphql',
+      plugins: [parserGraphql],
+    })
+    console.log(typeof prettierFormattedCode)
+    setPrettierFormattedCode(test) */
+  }, [finishedCode])
+
+  // Fetch the code based on Code ID and the UserID which is supplied within the URL
   useEffect(() => {
     if (!codeId || !creatorId || rawCodeEntities || retrieval) return
 
@@ -62,14 +107,25 @@ export default function Code(props) {
         return res.json()
       })
       .then(resData => {
-        const { generatedCode, retrievalCode } = resData.data.findCodeRedirect
-        setRawCodeEntities(generatedCode)
+        let { generatedCode, retrievalCode } = resData.data.findCodeRedirect
+        setRawCodeEntities(JSON.parse(generatedCode))
         setRetrievalCode(retrievalCode)
       })
       .catch(err => {
         console.log(err)
       })
   }, [codeId, creatorId])
+
+  function copyToClipboard(e) {
+    //TODO: Get this to work!!
+    // See - https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
+    console.log(
+      'Copied to clipboard! Well not really, but in the future it will be :) '
+    )
+    /* retrievalRef.current.select()
+    document.execCommand('copy')
+    e.target.focus() */
+  }
 
   if (!codeId || !creatorId) return <p>Loading...</p>
 
@@ -82,7 +138,9 @@ export default function Code(props) {
           You can come back and get your code anytime by entering your unique
           retrieval code below.
         </h2>
-        <h1>{retrieval}</h1>
+        <h1 onClick={copyToClipboard} ref={retrievalRef}>
+          {retrieval}
+        </h1>
         <p>
           <strong>Pro Tip:</strong> Click the code above to copy it to your
           clipboard! 📋
@@ -94,6 +152,7 @@ export default function Code(props) {
             <img src={pic04} alt="" />
           </span>
           <h2>Here is your code!</h2>
+          <p>{prettierFormattedCode}</p>
         </section>
       </div>
     </Layout>
