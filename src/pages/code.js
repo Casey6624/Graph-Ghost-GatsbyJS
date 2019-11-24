@@ -78,7 +78,15 @@ export default function Code(props) {
       <Helmet title="Your Code!" />
       <HeaderCode />
       <div className="retreivalCodeCard">
+        <h2>
+          You can come back and get your code anytime by entering your unique
+          retrieval code below.
+        </h2>
         <h1>{retrieval}</h1>
+        <p>
+          <strong>Pro Tip:</strong> Click the code above to copy it to your
+          clipboard! 📋
+        </p>
       </div>
       <div id="main">
         <section id="content" className="main">

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
 .retreivalCodeCard {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
@@ -10,7 +12,29 @@
   padding: 1rem;
 }
 
+.retreivalCodeCard h1:hover {
+  background: #935d8c;
+  cursor: pointer;
+}
+
 .retreivalCodeCard h1 {
-  color: white;
+  background: #636363;
+  color: #f2f2f2;
+  width: fit-content;
+  padding: 1rem;
+  margin: 0 auto;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.retreivalCodeCard p,
+.retreivalCodeCard strong {
+  color: #636363;
+  text-align: center;
+  margin: 0;
+}
+
+.retreivalCodeCard h2 {
+  color: #636363;
   text-align: center;
 }
