@@ -3,7 +3,7 @@ import { Link } from 'gatsby'
 import Helmet from 'react-helmet'
 import Waypoint from 'react-waypoint'
 import Layout from '../components/layout'
-import Header from '../components/Header'
+import Header from '../components/Headers/Header'
 import Nav from '../components/Nav'
 import Ghost from '../assets/images/graph.svg'
 

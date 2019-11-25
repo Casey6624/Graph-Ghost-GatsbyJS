@@ -4,7 +4,7 @@ import { Link } from 'gatsby'
 import Helmet from 'react-helmet'
 // Components
 import Layout from '../components/layout'
-import Header from '../components/Header'
+import Header from '../components/Headers/Header'
 import Ghost from '../assets/images/ghost.svg'
 import EntityForm from '../components/EntityForm/EntityForm'
 // Context

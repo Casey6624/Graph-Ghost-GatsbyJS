@@ -2,9 +2,13 @@ import React, { useEffect, useState, useLayoutEffect, useRef } from 'react'
 import Helmet from 'react-helmet'
 import prettier from 'prettier/standalone'
 import parserGraphql from 'prettier/parser-graphql'
-
+import { Link } from 'gatsby'
 import Layout from '../components/layout'
-import HeaderCode from '../components/HeaderCode'
+// if success
+import HeaderCode from '../components/Headers/Header'
+// if failed to fetch
+import HeaderError from '../components/Headers/HeaderError'
+import TimedError from '../components/misc/TimedError'
 import pic04 from '../assets/images/pic04.jpg'
 import './code.css'
 
@@ -22,7 +26,7 @@ export default function Code(props) {
   // PrettierFormattedCode - finishedCode which is ran through prettier package
   const [prettierFormattedCode, setPrettierFormattedCode] = useState(null)
   // Error array which catches any issues with the pulled data from the server
-  const [errors, setErrors] = useState([])
+  const [error, setError] = useState(null)
   const retrievalRef = useRef(null)
 
   // Runs before painting the UI, redirect if no creatorID or codeID
@@ -112,7 +116,9 @@ export default function Code(props) {
         setRetrievalCode(retrievalCode)
       })
       .catch(err => {
-        console.log(err)
+        setError(
+          '😢 We are sorry you are having issues. Double check you have the correct retrieval code (this will have been emailed to you). You can create a new API or go back to the homepage by using the actions above.'
+        )
       })
   }, [codeId, creatorId])
 
@@ -129,31 +135,62 @@ export default function Code(props) {
 
   if (!codeId || !creatorId) return <p>Loading...</p>
 
+  if (retrieval) {
+    return (
+      <Layout>
+        <Helmet title="Your Code!" />
+        <HeaderCode />
+        <div className="retreivalCodeCard">
+          <h2>
+            You can come back and get your code anytime by entering your unique
+            retrieval code below.
+          </h2>
+          <h1 onClick={copyToClipboard} ref={retrievalRef}>
+            {retrieval}
+          </h1>
+          <p>
+            <strong>Pro Tip:</strong> Click the code above to copy it to your
+            clipboard! 📋
+          </p>
+          <p>
+            You can also bookmark this page and view it any time in the future.
+          </p>
+        </div>
+        <div id="main">
+          <section id="content" className="main">
+            <span className="image main">
+              <img src={pic04} alt="" />
+            </span>
+            <h2>Here is your code!</h2>
+            <p>{prettierFormattedCode}</p>
+          </section>
+        </div>
+      </Layout>
+    )
+  }
+
   return (
     <Layout>
-      <Helmet title="Your Code!" />
-      <HeaderCode />
-      <div className="retreivalCodeCard">
-        <h2>
-          You can come back and get your code anytime by entering your unique
-          retrieval code below.
-        </h2>
-        <h1 onClick={copyToClipboard} ref={retrievalRef}>
-          {retrieval}
-        </h1>
-        <p>
-          <strong>Pro Tip:</strong> Click the code above to copy it to your
-          clipboard! 📋
-        </p>
+      <Helmet title="Ooops we're sorry." />
+      <HeaderError
+        Title="Well, this is awkward."
+        Description="We can't seem to find your API code using that retrieval code."
+      />
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <Link to="/create" className="button">
+          <span className="icon style1 fa-plus"></span>
+          &nbsp;
+          <span>Create an API</span>
+        </Link>
+
+        <Link to="/" className="button">
+          <span className="icon style1 fa-home"></span>
+          &nbsp;
+          <span>Go Back Home</span>
+        </Link>
       </div>
-      <div id="main">
-        <section id="content" className="main">
-          <span className="image main">
-            <img src={pic04} alt="" />
-          </span>
-          <h2>Here is your code!</h2>
-          <p>{prettierFormattedCode}</p>
-        </section>
+      <div className="retreivalCodeCard">
+        <h2>{error}</h2>
       </div>
     </Layout>
   )
