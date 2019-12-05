@@ -72,13 +72,12 @@ export default function Code(props) {
   }, [rawCodeEntities])
 
   useEffect(() => {
-    console.log(prettierFormattedCode)
-    /* const test = prettier.format(prettierFormattedCode, {
+    const niceCode = prettier.format(finishedCode, {
       parser: 'graphql',
       plugins: [parserGraphql],
     })
-    console.log(typeof prettierFormattedCode)
-    setPrettierFormattedCode(test) */
+    console.log(niceCode)
+    setPrettierFormattedCode(niceCode)
   }, [finishedCode])
 
   // Fetch the code based on Code ID and the UserID which is supplied within the URL
@@ -162,7 +161,8 @@ export default function Code(props) {
               <img src={pic04} alt="" />
             </span>
             <h2>Here is your code!</h2>
-            <p>{prettierFormattedCode}</p>
+            <p>{`
+            ${prettierFormattedCode}`}</p>
           </section>
         </div>
       </Layout>
