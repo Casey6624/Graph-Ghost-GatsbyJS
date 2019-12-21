@@ -38,3 +38,8 @@
   color: #636363;
   text-align: center;
 }
+
+.schemaViewContainer{
+  height: 50vh;
+  resize: none;
+}

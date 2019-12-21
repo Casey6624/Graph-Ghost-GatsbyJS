@@ -160,9 +160,8 @@ export default function Code(props) {
             <span className="image main">
               <img src={pic04} alt="" />
             </span>
-            <h2>Here is your code!</h2>
-            <p>{`
-            ${prettierFormattedCode}`}</p>
+            <h2>Schema.js - GraphQL</h2>
+            <textarea className="schemaViewContainer" value={prettierFormattedCode}></textarea>
           </section>
         </div>
       </Layout>
