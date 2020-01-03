@@ -1,15 +1,16 @@
 import React, { useEffect, useState, useLayoutEffect, useRef } from 'react'
 import Helmet from 'react-helmet'
-import prettier from 'prettier/standalone'
-import parserGraphql from 'prettier/parser-graphql'
 import { Link } from 'gatsby'
+// Components
 import Layout from '../components/layout'
 // if success
 import HeaderCode from '../components/Headers/Header'
 // if failed to fetch
+import Schema from '../components/CodePresentation/Schema'
 import HeaderError from '../components/Headers/HeaderError'
 import TimedError from '../components/misc/TimedError'
 import pic04 from '../assets/images/pic04.jpg'
+// Styling
 import './code.css'
 
 export default function Code(props) {
@@ -21,11 +22,6 @@ export default function Code(props) {
   const [retrieval, setRetrievalCode] = useState(null)
   // Parsed raw code from the API
   const [rawCodeEntities, setRawCodeEntities] = useState(null)
-  // Manipulated rawCode done on the Front-End
-  const [finishedTypes, setfinishedTypes] = useState('')
-  const [finishedInput, setFinishedInput] = useState('')
-  // PrettierFormattedCode - finishedTypes which is ran through prettier package
-  const [prettierFormattedCode, setPrettierFormattedCode] = useState(null)
   // Error array which catches any issues with the pulled data from the server
   const [error, setError] = useState(null)
   const retrievalRef = useRef(null)
@@ -50,61 +46,6 @@ module.exports = UserSchema = buildSchema(` + '`'
     setCodeId(search.split('=')[1].split('&')[0])
     setCreatorId(search.split('=')[2])
   }, [props])
-
-  // format code blocks once rawCodeEntities is set. Loops through the rawCode and sticks the data into strings ready to be formatted by prettier.
-  useEffect(() => {
-    if (!rawCodeEntities) return
-
-    let concatStringType = ''
-    let concatStringInput = ''
-
-    rawCodeEntities.data.forEach(([EntityName, Attributes]) => {
-      let formattedAttributes = ``
-
-      Attributes.forEach(({ attributeName, dataType }) => {
-        let temp = `${attributeName}: ${dataType}
-        `
-        formattedAttributes += temp
-      })
-
-      let tempStringEntity = `
-      type ${EntityName} {
-        _id: ID!
-        ${formattedAttributes}
-      }
-      `
-      let tempStringInput = `
-      input ${EntityName} {
-        ${formattedAttributes}
-      }
-      `
-      concatStringType += tempStringEntity
-      concatStringInput += tempStringInput
-    })
-    console.log(concatStringInput)
-    setfinishedTypes(concatStringType)
-    setFinishedInput(concatStringInput)
-  }, [rawCodeEntities])
-
-  // Runs whenever the Schema types have been created
-  useEffect(() => {
-    if (finishedTypes === '' || finishedInput === '') return
-
-    let tempConcat =
-      finishedTypes +
-      finishedInput +
-      `schema {
-      query: RootQuery
-      mutation: RootMutation
-  }`
-
-    const rawCombinedCode = prettier.format(`${tempConcat}`, {
-      parser: 'graphql',
-      plugins: [parserGraphql],
-    })
-    console.log(rawCombinedCode)
-    setPrettierFormattedCode(rawCombinedCode)
-  }, [finishedTypes, finishedInput])
 
   // Fetch the code based on Code ID and the UserID which is supplied within the URL
   useEffect(() => {
@@ -186,11 +127,7 @@ module.exports = UserSchema = buildSchema(` + '`'
             <span className="image main">
               <img src={pic04} alt="" />
             </span>
-            <h2>Schema.js - GraphQL</h2>
-            <textarea
-              className="schemaViewContainer"
-              value={`${GRAPHQL_START}${prettierFormattedCode}${GRAPHQL_END}`}
-            ></textarea>
+            <Schema rawCodeEntities={rawCodeEntities} />
           </section>
         </div>
       </Layout>
