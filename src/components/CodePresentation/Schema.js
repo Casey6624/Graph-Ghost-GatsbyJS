@@ -11,7 +11,10 @@ export default function Schema({ rawCodeEntities }) {
   // constants used to wrap around the TextArea of Schema.js
   const GRAPHQL_START =
     `const { buildSchema } = require('graphql'); 
-module.exports = UserSchema = buildSchema(` + '`'
+module.exports = UserSchema = buildSchema(` +
+    '`' +
+    `
+`
   const GRAPHQL_END = '`);'
 
   // format code blocks once rawCodeEntities is set. Loops through the rawCode and sticks the data into strings ready to be formatted by prettier.
