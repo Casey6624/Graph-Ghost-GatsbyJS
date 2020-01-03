@@ -1,4 +1,5 @@
 import React from 'react'
+import Snippet from './Snippet'
 
 export default function App(props) {
   // this component is generic, basic app.js setup so it is always the same.
@@ -50,7 +51,7 @@ mongoose
 
 app.listen(NODE_PORT);
 
-console.log("NodeJS Listening On PORT: + NODE_PORT");
+console.log("NodeJS Listening On PORT: " + NODE_PORT);
 `
 
   return (
@@ -58,7 +59,7 @@ console.log("NodeJS Listening On PORT: + NODE_PORT");
       <h2>
         <strong>App.js</strong> - NodeJS
       </h2>
-      <textarea className="appViewContainer" value={appBody}></textarea>
+      <Snippet>{appBody}</Snippet>
     </div>
   )
 }

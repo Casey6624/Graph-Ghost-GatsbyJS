@@ -10,12 +10,12 @@
     "gatsby-plugin-offline": "^2.0.25",
     "gatsby-plugin-react-helmet": "^3.0.10",
     "gatsby-plugin-sass": "^2.0.11",
-    "highlight.js": "^9.17.1",
     "node-sass": "^4.11.0",
     "prettier": "^1.14.2",
     "react": "^16.9",
     "react-dom": "^16.9",
     "react-helmet": "^5.2.0",
+    "react-highlight": "^0.12.0",
     "react-scroll-to-element": "^0.2.0",
     "react-scrollspy": "^3.3.5",
     "react-waypoint": "^8.0.3"

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import prettier from 'prettier/standalone'
 import parserGraphql from 'prettier/parser-graphql'
+import Snippet from './Snippet'
 
 export default function Schema({ rawCodeEntities }) {
   // Manipulated rawCode done on the Front-End
@@ -76,10 +77,7 @@ module.exports = UserSchema = buildSchema(` +
       <h2>
         <strong>Schema.js</strong> - GraphQL
       </h2>
-      <textarea
-        className="schemaViewContainer"
-        value={`${GRAPHQL_START}${prettierFormattedCode}${GRAPHQL_END}`}
-      ></textarea>
+      <Snippet>{`${GRAPHQL_START}${prettierFormattedCode}${GRAPHQL_END}`}</Snippet>
     </div>
   )
 }
