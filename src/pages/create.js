@@ -37,9 +37,6 @@ export default function Create(props) {
       setWarning('⚠️ You must add at least one entity before submitting!')
     }
     let dataToPost = [...allEntities]
-    console.log('dataToPost')
-    //console.log(dataToPost)
-    console.log(JSON.stringify({ data: dataToPost }))
     dataToPost = JSON.stringify({ data: dataToPost })
 
     fetch('http://localhost:4500/codeSubmit', {
@@ -71,7 +68,6 @@ export default function Create(props) {
   return (
     <Layout>
       <Helmet title="Graph Ghost! 👻" />
-
       <Header />
       <div id="main">
         <section id="intro" className="main">
