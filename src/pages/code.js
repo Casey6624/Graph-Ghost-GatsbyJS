@@ -30,10 +30,15 @@ export default function Code(props) {
   const [error, setError] = useState(null)
   const retrievalRef = useRef(null)
 
+  const GRAPHQL_START =
+    "const { buildSchema } = require('graphql');module.exports = UserSchema = buildSchema(`"
+
+  const GRAPHQL_END = '`);'
+
   // Runs before painting the UI, redirect if no creatorID or codeID
   useLayoutEffect(() => {
-    let rawParams = props.location.search
-    if (!rawParams) {
+    const { search } = props.location
+    if (!search) {
       window.location = `/create`
       return
     }
@@ -41,8 +46,8 @@ export default function Code(props) {
     EXAMPLE: Working Code & Creator example 
     URL: http://localhost:8000/code?codeId=5dda9b2b9d988816a4eafc7d&creatorId=5d88bdea24f2aa181c649cd1
     */
-    setCodeId(rawParams.split('=')[1].split('&')[0])
-    setCreatorId(rawParams.split('=')[2])
+    setCodeId(search.split('=')[1].split('&')[0])
+    setCreatorId(search.split('=')[2])
   }, [props])
 
   // format code blocks once rawCodeEntities is set. Loops through the rawCode and sticks the data into strings ready to be formatted by prettier.
@@ -84,19 +89,20 @@ export default function Code(props) {
   useEffect(() => {
     if (finishedTypes === '' || finishedInput === '') return
 
-    const defaultSchema = `schema {
+    let tempConcat =
+      finishedTypes +
+      finishedInput +
+      `schema {
       query: RootQuery
       mutation: RootMutation
   }`
 
-    let tempConcat = finishedTypes + finishedInput + defaultSchema
-
-    const niceCode = prettier.format(tempConcat, {
+    const rawCombinedCode = prettier.format(`${tempConcat}`, {
       parser: 'graphql',
       plugins: [parserGraphql],
     })
-    console.log(niceCode)
-    setPrettierFormattedCode(niceCode)
+    console.log(rawCombinedCode)
+    setPrettierFormattedCode(rawCombinedCode)
   }, [finishedTypes, finishedInput])
 
   // Fetch the code based on Code ID and the UserID which is supplied within the URL

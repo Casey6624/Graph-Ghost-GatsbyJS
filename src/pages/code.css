@@ -39,7 +39,11 @@
   text-align: center;
 }
 
-.schemaViewContainer{
+.schemaViewContainer {
   height: 50vh;
   resize: none;
+}
+
+.schemaViewContainer textarea {
+  color: lightgreen !important;
 }
