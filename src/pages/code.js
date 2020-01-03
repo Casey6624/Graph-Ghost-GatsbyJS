@@ -30,10 +30,10 @@ export default function Code(props) {
   const [error, setError] = useState(null)
   const retrievalRef = useRef(null)
 
+  // constants used to wrap around the TextArea of Schema.js
   const GRAPHQL_START =
     `const { buildSchema } = require('graphql'); 
 module.exports = UserSchema = buildSchema(` + '`'
-
   const GRAPHQL_END = '`);'
 
   // Runs before painting the UI, redirect if no creatorID or codeID
