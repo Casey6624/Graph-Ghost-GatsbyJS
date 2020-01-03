@@ -22,8 +22,9 @@ export default function Code(props) {
   // Parsed raw code from the API
   const [rawCodeEntities, setRawCodeEntities] = useState(null)
   // Manipulated rawCode done on the Front-End
-  const [finishedCode, setFinishedCode] = useState('')
-  // PrettierFormattedCode - finishedCode which is ran through prettier package
+  const [finishedTypes, setfinishedTypes] = useState('')
+  const [finishedInput, setFinishedInput] = useState('')
+  // PrettierFormattedCode - finishedTypes which is ran through prettier package
   const [prettierFormattedCode, setPrettierFormattedCode] = useState(null)
   // Error array which catches any issues with the pulled data from the server
   const [error, setError] = useState(null)
@@ -48,7 +49,8 @@ export default function Code(props) {
   useEffect(() => {
     if (!rawCodeEntities) return
 
-    let concatString = ''
+    let concatStringType = ''
+    let concatStringInput = ''
 
     rawCodeEntities.data.forEach(([EntityName, Attributes]) => {
       let formattedAttributes = ``
@@ -65,20 +67,37 @@ export default function Code(props) {
         ${formattedAttributes}
       }
       `
-      concatString += tempStringEntity
+      let tempStringInput = `
+      input ${EntityName} {
+        ${formattedAttributes}
+      }
+      `
+      concatStringType += tempStringEntity
+      concatStringInput += tempStringInput
     })
-    console.log(concatString)
-    setFinishedCode(concatString)
+    console.log(concatStringInput)
+    setfinishedTypes(concatStringType)
+    setFinishedInput(concatStringInput)
   }, [rawCodeEntities])
 
+  // Runs whenever the Schema types have been created
   useEffect(() => {
-    const niceCode = prettier.format(finishedCode, {
+    if (finishedTypes === '' || finishedInput === '') return
+
+    const defaultSchema = `schema {
+      query: RootQuery
+      mutation: RootMutation
+  }`
+
+    let tempConcat = finishedTypes + finishedInput + defaultSchema
+
+    const niceCode = prettier.format(tempConcat, {
       parser: 'graphql',
       plugins: [parserGraphql],
     })
     console.log(niceCode)
     setPrettierFormattedCode(niceCode)
-  }, [finishedCode])
+  }, [finishedTypes, finishedInput])
 
   // Fetch the code based on Code ID and the UserID which is supplied within the URL
   useEffect(() => {
@@ -161,7 +180,10 @@ export default function Code(props) {
               <img src={pic04} alt="" />
             </span>
             <h2>Schema.js - GraphQL</h2>
-            <textarea className="schemaViewContainer" value={prettierFormattedCode}></textarea>
+            <textarea
+              className="schemaViewContainer"
+              value={prettierFormattedCode}
+            ></textarea>
           </section>
         </div>
       </Layout>
