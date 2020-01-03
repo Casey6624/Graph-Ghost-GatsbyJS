@@ -14,6 +14,7 @@ export default function Schema({ rawCodeEntities }) {
 module.exports = UserSchema = buildSchema(` +
     '`' +
     `
+
 `
   const GRAPHQL_END = '`);'
 
@@ -47,7 +48,6 @@ module.exports = UserSchema = buildSchema(` +
       concatStringType += tempStringEntity
       concatStringInput += tempStringInput
     })
-    console.log(concatStringInput)
     setfinishedTypes(concatStringType)
     setFinishedInput(concatStringInput)
   }, [rawCodeEntities])
@@ -68,13 +68,14 @@ module.exports = UserSchema = buildSchema(` +
       parser: 'graphql',
       plugins: [parserGraphql],
     })
-    console.log(rawCombinedCode)
     setPrettierFormattedCode(rawCombinedCode)
   }, [finishedTypes, finishedInput])
   if (!rawCodeEntities) return
   return (
     <div>
-      <h2>Schema.js - GraphQL</h2>
+      <h2>
+        <strong>Schema.js</strong> - GraphQL
+      </h2>
       <textarea
         className="schemaViewContainer"
         value={`${GRAPHQL_START}${prettierFormattedCode}${GRAPHQL_END}`}

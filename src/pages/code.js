@@ -7,6 +7,7 @@ import Layout from '../components/layout'
 import HeaderCode from '../components/Headers/Header'
 // if failed to fetch
 import Schema from '../components/CodePresentation/Schema'
+import App from '../components/CodePresentation/App'
 import HeaderError from '../components/Headers/HeaderError'
 import TimedError from '../components/misc/TimedError'
 import pic04 from '../assets/images/pic04.jpg'
@@ -118,9 +119,8 @@ export default function Code(props) {
         </div>
         <div id="main">
           <section id="content" className="main">
-            <span className="image main">
-              <img src={pic04} alt="" />
-            </span>
+            <App />
+            <br />
             <Schema rawCodeEntities={rawCodeEntities} />
           </section>
         </div>
