@@ -31,7 +31,8 @@ export default function Code(props) {
   const retrievalRef = useRef(null)
 
   const GRAPHQL_START =
-    "const { buildSchema } = require('graphql');module.exports = UserSchema = buildSchema(`"
+    `const { buildSchema } = require('graphql'); 
+module.exports = UserSchema = buildSchema(` + '`'
 
   const GRAPHQL_END = '`);'
 
@@ -188,7 +189,7 @@ export default function Code(props) {
             <h2>Schema.js - GraphQL</h2>
             <textarea
               className="schemaViewContainer"
-              value={prettierFormattedCode}
+              value={`${GRAPHQL_START}${prettierFormattedCode}${GRAPHQL_END}`}
             ></textarea>
           </section>
         </div>
