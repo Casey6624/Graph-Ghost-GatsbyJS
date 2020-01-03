@@ -32,16 +32,26 @@ export default function Find(props) {
   function submitForm(e) {
     e.preventDefault()
 
+    //TODO: Add error handling for no email or retrievalCode
+
+    if (!emailAddress || !retrievalCode) return
+
+    /*
+    Working User Account
+    --------------------
+    USERID: 5d88bdea24f2aa181c649cd1
+    retrievalCode: 123
+    email: casey@test.com
+    */
+
     const requestBody = {
       query: `
-        query {
-          findCode(email: "${emailAddress}", retrievalCode:"${retrievalCode}"){
-            generatedCode
-            retrievalCode
-            createdAt
-            updatedAt
-          }
-        }`,
+      query {
+        findCode(email: "${emailAddress}", retrievalCode:"${retrievalCode}"){
+          codeID
+          userID
+        }
+    }`,
     }
     fetch(graphQLEndpoint, {
       method: 'POST',
@@ -54,8 +64,12 @@ export default function Find(props) {
         }
         return res.json()
       })
-      .then(data => {
-        console.log(data)
+      .then(resData => {
+        const { codeID, userID } = resData.data.findCode
+        if (!codeID || !userID) {
+          throw new Error('We could not find that combination :(')
+        }
+        window.location = `/code?codeId=${codeID}&creatorId=${userID}`
       })
       .catch(err => {
         setError(err.message)
@@ -128,7 +142,6 @@ export default function Find(props) {
               </div>
               {error ? (
                 <p className="errorForm">
-                  {' '}
                   <span id="oops">Ooops!</span> {error}
                 </p>
               ) : null}

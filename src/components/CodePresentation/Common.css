@@ -2,14 +2,9 @@
 /* CUSTOM CSS */
 
 .highlightContainer {
-  background: black !important;
+  background: #181818 !important;
 }
 
-/*
-
-Style with support for rainbow parens
-
-*/
 .hljs {
   display: block;
   overflow-x: auto;
