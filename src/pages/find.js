@@ -43,6 +43,7 @@ export default function Find(props) {
     retrievalCode: 123
     email: casey@test.com
     */
+    console.log(emailAddress, retrievalCode)
 
     const requestBody = {
       query: `
@@ -72,7 +73,9 @@ export default function Find(props) {
         window.location = `/code?codeId=${codeID}&creatorId=${userID}`
       })
       .catch(err => {
-        setError(err.message)
+        setError(
+          'There was an issue with that combination, please check the retreival code is correct. It will be included inside of the email we first sent you when you created the API.'
+        )
       })
   }
 

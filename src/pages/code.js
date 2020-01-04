@@ -94,9 +94,9 @@ export default function Code(props) {
     e.target.focus() */
   }
 
-  if (!codeId || !creatorId) return <p>Loading...</p>
+  if (!codeId || !creatorId || !rawCodeEntities) return <p>Loading...</p>
 
-  if (retrieval) {
+  if (retrieval && rawCodeEntities) {
     return (
       <Layout>
         <Helmet title="Your Code!" />

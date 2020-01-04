@@ -23,10 +23,13 @@ module.exports = UserSchema = buildSchema(` +
   useEffect(() => {
     if (!rawCodeEntities) return
 
+    /*  console.log(rawCodeEntities)
+    return */
+
     let concatStringType = ''
     let concatStringInput = ''
 
-    rawCodeEntities.data.forEach(([EntityName, Attributes]) => {
+    rawCodeEntities.forEach(([EntityName, Attributes]) => {
       let formattedAttributes = ``
 
       Attributes.forEach(({ attributeName, dataType }) => {
@@ -71,7 +74,9 @@ module.exports = UserSchema = buildSchema(` +
     })
     setPrettierFormattedCode(rawCombinedCode)
   }, [finishedTypes, finishedInput])
-  if (!rawCodeEntities) return
+  if (!rawCodeEntities) {
+    return <div>Loading...</div>
+  }
   return (
     <div>
       <h2>
