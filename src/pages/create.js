@@ -75,7 +75,6 @@ export default function Create(props) {
         return res.json()
       })
       .then(data => {
-        console.log(data)
         const { codeId, creatorId } = data
         if (!codeId) {
           throw new Error('Code ID is missing!')
@@ -86,7 +85,7 @@ export default function Create(props) {
         window.location = `/code?codeId=${codeId}&creatorId=${creatorId}`
       })
       .catch(err => {
-        console.log(err)
+        throw new Error('There was an issue loading this combination.')
       })
   }
 
@@ -137,7 +136,11 @@ export default function Create(props) {
               >
                 <div className="creationContainer">
                   {attributeForms.map((form, index) => (
-                    <EntityForm key={index} indexKey={index} />
+                    <EntityForm
+                      key={index}
+                      indexKey={index}
+                      setWarning={e => setWarning(e)}
+                    />
                   ))}
                   <div className="creationBtnContainer">
                     <span onClick={() => addNewForm()} className="button">
