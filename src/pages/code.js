@@ -9,6 +9,7 @@ import HeaderCode from '../components/Headers/Header'
 import Schema from '../components/CodePresentation/Schema'
 import App from '../components/CodePresentation/App'
 import Model from '../components/CodePresentation/Model'
+import Resolver from '../components/CodePresentation/Resolver'
 // If Failed to fetch
 import HeaderError from '../components/Headers/HeaderError'
 import TimedError from '../components/misc/TimedError'
@@ -122,6 +123,8 @@ export default function Code(props) {
         </div>
         <div id="main">
           <section id="content" className="main">
+            <Resolver rawCodeEntities={rawCodeEntities} />
+            <br />
             <App />
             <br />
             <Schema rawCodeEntities={rawCodeEntities} />

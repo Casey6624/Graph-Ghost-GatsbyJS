@@ -14,7 +14,7 @@ const { Schema } = mongoose;
 const ${EntityName}Schema = new Schema({`
 
   const MODEL_END = `},{ timestamps: true });
-module.exports = mongoose.model("${EntityName}", codeSchema);`
+module.exports = mongoose.model("${EntityName}", ${EntityName}Schema);`
 
   useEffect(() => {
     let completedString = ''
