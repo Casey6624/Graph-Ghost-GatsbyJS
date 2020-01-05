@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react'
 import prettier from 'prettier/standalone'
 import parserGraphql from 'prettier/parser-graphql'
 import Snippet from './Snippet'
+// Images/Assets
+import Logos from '../../assets/images/svgLogos/logos'
+// Styling
+import './Common.css'
 
 export default function Schema({ rawCodeEntities }) {
   // Manipulated rawCode done on the Front-End
@@ -76,9 +80,12 @@ module.exports = UserSchema = buildSchema(` +
   }
   return (
     <div>
-      <h2>
-        <strong>Schema.js</strong> - GraphQL
-      </h2>
+      <div className="codePresHeader">
+        {Logos.graphql}
+        <h2>
+          <strong>Schema.js</strong> - GraphQL
+        </h2>
+      </div>
       <Snippet>{`${GRAPHQL_START}${prettierFormattedCode}${GRAPHQL_END}`}</Snippet>
     </div>
   )

@@ -1,34 +1,75 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Snippet from './Snippet'
+// Images/Assets
+import Logos from '../../assets/images/svgLogos/logos'
+// Styling
+import './Common.css'
 
 export default function Model({ EntityName, Attributes }) {
-  const MODEL_START = `const mongoose = require('mongoose');const { Schema } = mongoose; const ${EntityName}Schema = new Schema({`
+  const [prettierFormatted, setPrettierFormatted] = useState(null)
 
-  const MODEL_END = `},{ timestamps: true }); module.exports = mongoose.model("${EntityName}", codeSchema);`
+  const MODEL_START = `// ${EntityName} Model
+const mongoose = require('mongoose');
+const { Schema } = mongoose; 
+const ${EntityName}Schema = new Schema({`
+
+  const MODEL_END = `},{ timestamps: true });
+module.exports = mongoose.model("${EntityName}", codeSchema);`
 
   useEffect(() => {
     let completedString = ''
     Attributes.forEach(({ attributeName, dataType, required }) => {
-      let tempString = `
+      // peronsalise the dataType to suit Mongoose specification
+      switch (dataType) {
+        case 'string':
+          dataType = 'String'
+          break
+        case 'Int':
+          dataType = 'Number'
+          break
+        case 'Date':
+          dataType = 'String // Use toISOString() to format to date'
+          break
+      }
+      let tempString
+
+      // format with additional required field, if user choose non nullable item
+      if (required) {
+        tempString = `
     ${attributeName}: {
         type: ${dataType},
-        ${required ? 'required: true' : ''}
-      }
+        required: true
+    }`
+      } else {
+        tempString = `
+    ${attributeName}: {
+        type: ${dataType}
+    }
     `
+      }
       completedString += tempString
     })
+
+    //const formmatedCode = prettier.format(completedString)
+
+    setPrettierFormatted(completedString)
   }, [EntityName, Attributes])
 
-  if (!EntityName || !Attributes) {
-    return <div>Loading...</div>
+  if (!prettierFormatted) {
+    return <div>Loading Model...</div>
   }
   return (
     <div>
-      <h2>
-        <strong>{`${EntityName}.js`}</strong> - Mongoose Model
-      </h2>
+      <div className="codePresHeader">
+        {Logos.mongo}
+        <h2>
+          <strong>{`${EntityName}.js`}</strong> - Mongoose Model
+        </h2>
+      </div>
+
       <Snippet>
         {MODEL_START}
+        {prettierFormatted}
         {MODEL_END}
       </Snippet>
     </div>

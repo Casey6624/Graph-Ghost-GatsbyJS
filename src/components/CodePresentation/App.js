@@ -1,5 +1,9 @@
 import React from 'react'
 import Snippet from './Snippet'
+// Images/Assets
+import Logos from '../../assets/images/svgLogos/logos'
+// Styling
+import './Common.css'
 
 export default function App(props) {
   // this component is generic, basic app.js setup so it is always the same.
@@ -56,9 +60,13 @@ console.log("NodeJS Listening On PORT: " + NODE_PORT);
 
   return (
     <div>
-      <h2>
-        <strong>App.js</strong> - NodeJS
-      </h2>
+      <div className="codePresHeader">
+        {Logos.nodeJS}
+        <h2>
+          <strong>App.js</strong> - NodeJS
+        </h2>
+      </div>
+
       <Snippet>{appBody}</Snippet>
     </div>
   )
