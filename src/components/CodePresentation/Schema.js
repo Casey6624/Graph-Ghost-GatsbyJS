@@ -12,6 +12,7 @@ export default function Schema({ rawCodeEntities }) {
   const [finishedTypes, setfinishedTypes] = useState('')
   const [finishedInput, setFinishedInput] = useState('')
   const [finishedQuery, setFinishedQuery] = useState('')
+  const [finishedMutations, setFinishedMutations] = useState('')
   // PrettierFormattedCode - finishedTypes which is ran through prettier package
   const [prettierFormattedCode, setPrettierFormattedCode] = useState(null)
   // constants used to wrap around the TextArea of Schema.js
@@ -38,6 +39,8 @@ module.exports = UserSchema = buildSchema(` +
 
       let tempQ = `${EntityName.toLowerCase()}s: [${EntityName}!]
 `
+      let tempM = `create${EntityName}(${EntityName.toLowerCase()}Input: ${EntityName}Input): ${EntityName}!
+      `
 
       Attributes.forEach(({ attributeName, dataType, required }) => {
         let temp = `${attributeName}: ${dataType}${required ? '!' : ''}
@@ -59,14 +62,23 @@ module.exports = UserSchema = buildSchema(` +
       concatStringType += tempStringEntity
       concatStringInput += tempStringInput
       concatQuery += tempQ
+      concatMutations += tempM
     })
     let finishedQuery = `
 type RootQuery{
 ${concatQuery}
-}`
+}
+`
+    let finishedMutations = `
+type RootMutation{
+  ${concatMutations}
+}
+`
+
     setfinishedTypes(concatStringType)
     setFinishedInput(concatStringInput)
     setFinishedQuery(finishedQuery)
+    setFinishedMutations(finishedMutations)
   }, [rawCodeEntities])
 
   // Runs whenever the Schema types have been created
@@ -77,7 +89,9 @@ ${concatQuery}
       finishedTypes +
       finishedInput +
       finishedQuery +
-      `schema {
+      finishedMutations +
+      `
+      schema {
       query: RootQuery
       mutation: RootMutation
   }`
