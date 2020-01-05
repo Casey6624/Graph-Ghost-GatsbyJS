@@ -94,7 +94,7 @@ export default function Code(props) {
     e.target.focus() */
   }
 
-  if (!codeId || !creatorId || !rawCodeEntities) return <p>Loading...</p>
+  if (!codeId || !creatorId) return <p>Loading...</p>
 
   if (retrieval && rawCodeEntities) {
     return (
