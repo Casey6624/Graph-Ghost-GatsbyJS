@@ -122,13 +122,14 @@ export default function Code(props) {
         </div>
         <div id="main">
           <section id="content" className="main">
-            <br />
-            {rawCodeEntities.map(([EntityName, Attributes]) => (
-              <Model EntityName={EntityName} Attributes={Attributes} />
-            ))}
             <App />
             <br />
             <Schema rawCodeEntities={rawCodeEntities} />
+            <br />
+            {// Models
+            rawCodeEntities.map(([EntityName, Attributes]) => (
+              <Model EntityName={EntityName} Attributes={Attributes} />
+            ))}
           </section>
         </div>
       </Layout>
