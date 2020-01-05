@@ -5,9 +5,11 @@ import { Link } from 'gatsby'
 import Layout from '../components/layout'
 // if success
 import HeaderCode from '../components/Headers/Header'
-// if failed to fetch
+// Code Presentation
 import Schema from '../components/CodePresentation/Schema'
 import App from '../components/CodePresentation/App'
+import Model from '../components/CodePresentation/Model'
+// If Failed to fetch
 import HeaderError from '../components/Headers/HeaderError'
 import TimedError from '../components/misc/TimedError'
 import pic04 from '../assets/images/pic04.jpg'
@@ -27,6 +29,7 @@ export default function Code(props) {
   const [error, setError] = useState(null)
   const retrievalRef = useRef(null)
 
+  console.log(rawCodeEntities)
   // Runs before painting the UI, redirect if no creatorID or codeID
   useLayoutEffect(() => {
     const { search } = props.location
@@ -119,6 +122,10 @@ export default function Code(props) {
         </div>
         <div id="main">
           <section id="content" className="main">
+            <br />
+            {rawCodeEntities.map(([EntityName, Attributes]) => (
+              <Model EntityName={EntityName} Attributes={Attributes} />
+            ))}
             <App />
             <br />
             <Schema rawCodeEntities={rawCodeEntities} />
