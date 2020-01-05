@@ -23,17 +23,14 @@ module.exports = UserSchema = buildSchema(` +
   useEffect(() => {
     if (!rawCodeEntities) return
 
-    /*  console.log(rawCodeEntities)
-    return */
-
     let concatStringType = ''
     let concatStringInput = ''
 
     rawCodeEntities.forEach(([EntityName, Attributes]) => {
       let formattedAttributes = ``
 
-      Attributes.forEach(({ attributeName, dataType }) => {
-        let temp = `${attributeName}: ${dataType}
+      Attributes.forEach(({ attributeName, dataType, required }) => {
+        let temp = `${attributeName}: ${dataType}${required ? '!' : ''}
         `
         formattedAttributes += temp
       })
