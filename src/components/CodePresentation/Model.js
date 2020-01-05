@@ -61,10 +61,10 @@ module.exports = mongoose.model("${EntityName}", ${EntityName}Schema);`
   return (
     <div>
       <div className="codePresHeader">
-        {Logos.mongo}
         <h2>
           <strong>{`${EntityName}.js`}</strong> - Mongoose Model
         </h2>
+        {Logos.mongo}
       </div>
 
       <Snippet>

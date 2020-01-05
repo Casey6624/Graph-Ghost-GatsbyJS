@@ -108,10 +108,10 @@ type RootMutation{
   return (
     <div>
       <div className="codePresHeader">
-        {Logos.graphql}
         <h2>
           <strong>Schema.js</strong> - GraphQL
         </h2>
+        {Logos.graphql}
       </div>
       <Snippet>{`${GRAPHQL_START}${prettierFormattedCode}${GRAPHQL_END}`}</Snippet>
     </div>

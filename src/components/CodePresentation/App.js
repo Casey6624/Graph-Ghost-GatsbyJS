@@ -61,10 +61,10 @@ console.log("NodeJS Listening On PORT: " + NODE_PORT);
   return (
     <div>
       <div className="codePresHeader">
-        {Logos.nodeJS}
         <h2>
           <strong>App.js</strong> - NodeJS
         </h2>
+        {Logos.nodeJS}
       </div>
 
       <Snippet>{appBody}</Snippet>
