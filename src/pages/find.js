@@ -68,6 +68,7 @@ export default function Find(props) {
       .then(resData => {
         const { codeID, userID } = resData.data.findCode
         if (!codeID || !userID) {
+          setError('We could not find that combination :(')
           throw new Error('We could not find that combination :(')
         }
         window.location = `/code?codeId=${codeID}&creatorId=${userID}`

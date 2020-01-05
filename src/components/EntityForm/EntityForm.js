@@ -40,7 +40,6 @@ export default function EntityForm({ indexKey }) {
 
   function handleSubmit(e) {
     e.preventDefault()
-    return
     if (e.target.EntityTitle.value === '') {
       setWarning('⚠️ Entity Title cannot be empty!')
       return
@@ -52,6 +51,7 @@ export default function EntityForm({ indexKey }) {
     const oldEntities = [...createFormContext.allEntities]
     oldEntities.push([e.target.EntityTitle.value, attributes])
     createFormContext.setAllEntities(oldEntities)
+    console.log(oldEntities)
     setStatus('Complete')
   }
 

@@ -5,7 +5,8 @@ import './AttributeForm.css'
 export default function({ setData }) {
   const [status, setStatus] = useState(false)
   const [attributeName, setAttributeName] = useState('')
-  const [attributeDataType, setAttributeDataType] = useState('')
+  const [attributeDataType, setAttributeDataType] = useState('string')
+  const [requiredData, setRequiredData] = useState(false)
 
   // Used to display the Add New Attribute Form
   function handleClickEvent(e) {
@@ -19,17 +20,24 @@ export default function({ setData }) {
     const { name, value } = target
     if (name === 'attributeName') {
       setAttributeName(value)
+      return
     } else if (name === 'attributeDataType') {
       setAttributeDataType(value)
+      return
+    } else if (name === 'requiredDataType') {
+      setRequiredData(!requiredData)
     }
-    return
   }
 
   // Store form elements in state
 
   function handleSubmit(e) {
     if (attributeName.trim() !== '' && attributeDataType.trim() !== '') {
-      setData({ attributeName: attributeName, dataType: attributeDataType })
+      setData({
+        attributeName: attributeName,
+        dataType: attributeDataType,
+        required: requiredData,
+      })
       setStatus('COMPLETE')
     }
     // TODO: Add validation to check fields if the validation fails
@@ -41,6 +49,10 @@ export default function({ setData }) {
         <h3>
           Attribute <strong>{attributeName}</strong> Added!
         </h3>
+        <p>
+          A {requiredData ? 'Non-Nullable' : 'Nullable'} {attributeDataType}{' '}
+          Data Type
+        </p>
         <span className="icon style2 fa-check" id="EntityClose"></span>
       </div>
     )
@@ -90,14 +102,19 @@ export default function({ setData }) {
               <option name="date">Date</option>
               <option name="bool">Bool</option>
             </select>
-            <span
-              className={
-                attributeDataType !== ''
-                  ? 'icon style2 fa-check-circle'
-                  : 'icon style2 fa-times-circle'
-              }
-              id="validationIcons"
-            ></span>
+          </div>
+          <div className="basicFlex">
+            <select
+              className="inline-form-item"
+              name="requiredDataType"
+              onChange={e => handleFormChange(e)}
+            >
+              <option defaultChecked disabled required>
+                Is Attribute Required?
+              </option>
+              <option name="notrequired">Nullable</option>
+              <option name="required">Not Nullable</option>
+            </select>
           </div>
           <br />
           <div
