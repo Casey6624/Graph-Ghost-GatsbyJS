@@ -4,8 +4,10 @@ import Helmet from 'react-helmet'
 import Waypoint from 'react-waypoint'
 import Layout from '../components/layout'
 import Header from '../components/Headers/Header'
+import Logos from '../assets/images/svgLogos/logos'
 import Nav from '../components/Nav'
 import Ghost from '../assets/images/graph.svg'
+import './index.css'
 
 export default function Index(props) {
   const [stickyNav, setStickyNav] = useState(false)
@@ -30,6 +32,29 @@ export default function Index(props) {
       <Nav sticky={stickyNav} />
 
       <div id="main">
+        <div className="action-container">
+          <div className="centerElements">
+            {Logos.build}
+            <h2>Start Building From Scratch</h2>
+            <Link to="/create" className="button">
+              Create
+            </Link>
+          </div>
+          <div className="centerElements">
+            {Logos.crawl}
+            <h2>Use Data From Another Site</h2>
+            <Link to="/" className="button">
+              Configure
+            </Link>
+          </div>
+          <div className="centerElements">
+            {Logos.find}
+            <h2>Find an existing API</h2>
+            <Link to="/find" className="button">
+              Search
+            </Link>
+          </div>
+        </div>
         <section id="intro" className="main">
           <div className="spotlight">
             <div className="content">
