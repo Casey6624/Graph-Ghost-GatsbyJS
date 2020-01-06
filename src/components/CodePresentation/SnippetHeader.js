@@ -11,8 +11,7 @@ export default function SnippetHeader({
   technology,
   image = 'nodeJS',
 }) {
-  // Switch this back to false!!
-  const [showInfo, setShowInfo] = useState(true)
+  const [showInfo, setShowInfo] = useState(false)
   function handleShowInfo() {
     setShowInfo(!showInfo)
   }

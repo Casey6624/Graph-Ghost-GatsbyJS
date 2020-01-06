@@ -8,7 +8,7 @@
 .defaultFlex {
   display: flex;
   align-items: center;
-  justify-content: space-around !important;
+  justify-content: space-between;
 }
 .defaultFlex h4 {
   margin-right: 0.5rem;
