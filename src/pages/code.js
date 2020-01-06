@@ -40,7 +40,7 @@ export default function Code(props) {
     }
     /* 
     EXAMPLE: Working Code & Creator example 
-    URL: http://localhost:8000/code?codeId=5dda9b2b9d988816a4eafc7d&creatorId=5d88bdea24f2aa181c649cd1
+    URL: http://localhost:8000/code?codeId=5e1226c0f7193a284c7ca4ef&creatorId=5e12180ef7193a284c7ca4ed
     */
     setCodeId(search.split('=')[1].split('&')[0])
     setCreatorId(search.split('=')[2])
