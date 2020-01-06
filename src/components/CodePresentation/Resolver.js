@@ -14,12 +14,13 @@ export default function Resolver({ rawCodeEntities }) {
   useEffect(() => {
     let tempImports = ''
     let tempMutations = ''
+    let tempQueries = ''
     rawCodeEntities.forEach(([EntityName, Attributes]) => {
       // get imports code
       tempImports += `const ${EntityName} = require("../../models/${EntityName}");
 `
       // get mutations code
-      tempMutations += `create${EntityName} async => {
+      tempMutations += `create${EntityName}: async args => {
 const {${Attributes.map(
         ({ attributeName }) => ' ' + attributeName
       )} } = args.${EntityName.toLowerCase()}Input
@@ -34,12 +35,24 @@ const result = await ${EntityName.toLowerCase()}.save()
 return result
 },
 `
+
+      tempQueries += `${EntityName.toLowerCase()}s: async () => {
+try {
+  const ${EntityName.toLowerCase()}s = await ${EntityName}.find();
+  return ${EntityName.toLowerCase()}s;
+} catch (err) {
+  throw err;
+}
+},
+`
     })
 
     let formatted = `const mongoose = require("mongoose");
 ${tempImports}
 module.exports = GraphQLResolvers = {
+${tempQueries}
 ${tempMutations}
+};
 `
 
     setImports(formatted)
