@@ -22,15 +22,24 @@ export default function Resolver({ rawCodeEntities }) {
       tempMutations += `create${EntityName} async => {
 const {${Attributes.map(
         ({ attributeName }) => ' ' + attributeName
-      )}} = args.${EntityName.toLowerCase()}Input
+      )} } = args.${EntityName.toLowerCase()}Input
+
+const ${EntityName.toLowerCase()} = new ${EntityName}({
+  ${Attributes.map(
+    ({ attributeName }) => `
+    ${attributeName}: ${attributeName}`
+  )}
+})
+const result = await ${EntityName.toLowerCase()}.save()
+return result
 },
 `
     })
 
     let formatted = `const mongoose = require("mongoose");
 ${tempImports}
-${tempMutations}
 module.exports = GraphQLResolvers = {
+${tempMutations}
 `
 
     setImports(formatted)
