@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import prettier from 'prettier/standalone'
 import parserGraphql from 'prettier/parser-graphql'
 import Snippet from './Snippet'
-// Images/Assets
-import Logos from '../../assets/images/svgLogos/logos'
-// Styling
-import './Common.css'
+import SnippetHeader from './SnippetHeader'
 
 export default function Schema({ rawCodeEntities }) {
   // Manipulated rawCode done on the Front-End
@@ -106,14 +103,13 @@ type RootMutation{
     return <div>Loading...</div>
   }
   return (
-    <div>
-      <div className="codePresHeader">
-        <h2>
-          <strong>Schema.js</strong> - GraphQL
-        </h2>
-        {Logos.graphql}
-      </div>
+    <Fragment>
+      <SnippetHeader
+        image="graphql"
+        fileName="Schema.js"
+        technology="GraphQL Schema"
+      />
       <Snippet>{`${GRAPHQL_START}${prettierFormattedCode}${GRAPHQL_END}`}</Snippet>
-    </div>
+    </Fragment>
   )
 }

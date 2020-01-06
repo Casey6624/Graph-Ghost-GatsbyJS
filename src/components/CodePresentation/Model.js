@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Snippet from './Snippet'
-// Images/Assets
-import Logos from '../../assets/images/svgLogos/logos'
-// Styling
-import './Common.css'
+import SnippetHeader from './SnippetHeader'
 
 export default function Model({ EntityName, Attributes }) {
   const [prettierFormatted, setPrettierFormatted] = useState(null)
@@ -60,13 +57,11 @@ module.exports = mongoose.model("${EntityName}", ${EntityName}Schema);`
   }
   return (
     <div>
-      <div className="codePresHeader">
-        <h2>
-          <strong>{`${EntityName}.js`}</strong> - Mongoose Model
-        </h2>
-        {Logos.mongo}
-      </div>
-
+      <SnippetHeader
+        image="mongo"
+        fileName={`${EntityName}.js`}
+        technology="Mongoose Model"
+      />
       <Snippet>
         {MODEL_START}
         {prettierFormatted}

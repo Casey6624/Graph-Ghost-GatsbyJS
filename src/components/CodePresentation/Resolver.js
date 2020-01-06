@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
 // Components
 import Snippet from './Snippet'
-// Images/Assets
-import Logos from '../../assets/images/svgLogos/logos'
-// Styling
-import './Common.css'
+import SnippetHeader from './SnippetHeader'
 
 export default function Resolver({ rawCodeEntities }) {
-  const [imports, setImports] = useState('')
+  const [finishedCode, setFinishedCode] = useState('')
 
   // TODO: forEach of the Entities and create findAll and create Mongoose actions
 
@@ -54,8 +51,7 @@ ${tempQueries}
 ${tempMutations}
 };
 `
-
-    setImports(formatted)
+    setFinishedCode(formatted)
   }, [rawCodeEntities])
 
   if (!rawCodeEntities) {
@@ -64,14 +60,12 @@ ${tempMutations}
 
   return (
     <div>
-      <div className="codePresHeader">
-        <h2>
-          <strong>Resolvers.js</strong> - GraphQL Resolver
-        </h2>
-        {Logos.graphql}
-      </div>
-
-      <Snippet>{imports}</Snippet>
+      <SnippetHeader
+        image="graphql"
+        fileName="Resolvers.js"
+        technology="GraphQL Resolver"
+      />
+      <Snippet>{finishedCode}</Snippet>
     </div>
   )
 }

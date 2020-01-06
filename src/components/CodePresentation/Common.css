@@ -2,4 +2,30 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.defaultFlex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.defaultFlex h4 {
+  margin-right: 0.5rem;
+}
+
+#showInfoBtn {
+  margin-right: 1rem;
+}
+
+#showInfoBtn:hover,
+#showInfoCont:hover {
+  cursor: pointer;
+}
+
+.informationContainer {
+  background: #f2f2f2;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
 }
