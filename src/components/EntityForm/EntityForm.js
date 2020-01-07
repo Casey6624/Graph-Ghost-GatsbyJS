@@ -88,6 +88,11 @@ export default function EntityForm({ indexKey }) {
             <AttributeForm setData={setTempAttribute} />
             <AttributeForm setData={setTempAttribute} />
           </div>
+          <div className="AttributeMasterContainer">
+            <AttributeForm setData={setTempAttribute} />
+            <AttributeForm setData={setTempAttribute} />
+            <AttributeForm setData={setTempAttribute} />
+          </div>
           <input type="submit" value="Save Entity"></input>
         </form>
         <TimedError warning={warning} setWarning={setWarning} DURATION={3000} />

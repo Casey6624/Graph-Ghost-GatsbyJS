@@ -61,6 +61,9 @@ module.exports = mongoose.model("${EntityName}", ${EntityName}Schema);`
         image="mongo"
         fileName={`${EntityName}.js`}
         technology="Mongoose Model"
+        fileContents={`${MODEL_START}
+        ${prettierFormatted}
+        ${MODEL_END}`}
       />
       <Snippet>
         {MODEL_START}

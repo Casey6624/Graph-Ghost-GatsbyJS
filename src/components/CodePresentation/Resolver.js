@@ -64,6 +64,7 @@ ${tempMutations}
         image="graphql"
         fileName="Resolvers.js"
         technology="GraphQL Resolver"
+        fileContents={finishedCode}
       />
       <Snippet>{finishedCode}</Snippet>
     </div>

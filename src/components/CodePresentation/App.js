@@ -62,6 +62,7 @@ console.log("NodeJS Listening On PORT: " + NODE_PORT);
         image="nodeJS"
         fileName="App.js"
         technology="NodeJS/ExpressJS Application"
+        fileContents={appBody}
       />
 
       <Snippet>{appBody}</Snippet>

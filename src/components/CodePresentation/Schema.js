@@ -10,6 +10,7 @@ export default function Schema({ rawCodeEntities }) {
   const [finishedInput, setFinishedInput] = useState('')
   const [finishedQuery, setFinishedQuery] = useState('')
   const [finishedMutations, setFinishedMutations] = useState('')
+  const [download, setDownload] = useState(null)
   // PrettierFormattedCode - finishedTypes which is ran through prettier package
   const [prettierFormattedCode, setPrettierFormattedCode] = useState(null)
   // constants used to wrap around the TextArea of Schema.js
@@ -107,6 +108,7 @@ type RootMutation{
       <SnippetHeader
         image="graphql"
         fileName="Schema.js"
+        fileContents={`${GRAPHQL_START}${prettierFormattedCode}${GRAPHQL_END}`}
         technology="GraphQL Schema"
       />
       <Snippet>{`${GRAPHQL_START}${prettierFormattedCode}${GRAPHQL_END}`}</Snippet>
