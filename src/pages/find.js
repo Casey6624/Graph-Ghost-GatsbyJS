@@ -85,10 +85,10 @@ export default function Find(props) {
     let { name, value } = target
     value = value.trim()
     if (name === 'email') {
-      setEmailAddress(value)
+      setEmailAddress(value.toLowerCase())
     }
     if (name === 'retrieval') {
-      setRetrievalCode(value)
+      setRetrievalCode(value.toLowerCase())
     }
   }
 

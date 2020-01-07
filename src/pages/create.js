@@ -27,7 +27,7 @@ export default function Create(props) {
   const createFormContext = useContext(CreateFormContext)
 
   function updateEmailHandler({ target: { value } }) {
-    setEmailAddress(value.trim())
+    setEmailAddress(value.trim().toLowerCase())
   }
 
   useEffect(() => {
