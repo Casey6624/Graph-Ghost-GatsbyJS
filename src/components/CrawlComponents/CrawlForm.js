@@ -10,6 +10,7 @@ export default function CrawlForm({ entityName, xPathNodes, DOMDesc }) {
       {DOMDesc.map(({ type, content, outerHTML }, index) => (
         <SelectedAttributes
           key={xPathNodes[index]}
+          id={xPathNodes[index]}
           content={content}
           type={type}
           outerHTML={outerHTML}

@@ -19,6 +19,8 @@ export default function Crawl(props) {
   const [crawlId, setCrawlId] = useState(null)
   // Array of XPathNodes & DOMDesc. Also contains DOMNodes but these are host objects which cannot be saved to Mongo (Blank objects)
   const [data, setData] = useState(null)
+  // Data with more context added to the raw data
+  const [finishedData, setFinishedData] = useState([])
   // Error array which catches any issues with the pulled data from the server
   const [error, setError] = useState(null)
 
