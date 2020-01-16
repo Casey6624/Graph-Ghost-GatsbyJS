@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect, useRef } from 'react'
+import React, { useEffect, useState, useLayoutEffect, useContext } from 'react'
 import Helmet from 'react-helmet'
 import { Link } from 'gatsby'
 // Components
@@ -10,6 +10,8 @@ import HeaderCode from '../components/Headers/Header'
 import HeaderError from '../components/Headers/HeaderError'
 import TimedError from '../components/misc/TimedError'
 import pic04 from '../assets/images/pic04.jpg'
+// Context
+import CrawlFormContext from '../context/CrawlFormContext'
 // Styling
 import './code.css'
 
@@ -24,6 +26,8 @@ export default function Crawl(props) {
   // Error array which catches any issues with the pulled data from the server
   const [error, setError] = useState(null)
 
+  const crawlFormContext = useContext(CrawlFormContext)
+
   // Runs before painting the UI, redirect if no creatorID or codeID
   useLayoutEffect(() => {
     const { search } = props.location
@@ -33,6 +37,10 @@ export default function Crawl(props) {
     }
     setCrawlId(search.split('=')[1])
   }, [props])
+
+  function handleUpdateFinishedData(id) {
+    console.log(id)
+  }
 
   // Fetch the code based on Code ID and the UserID which is supplied within the URL
   useEffect(() => {
@@ -88,17 +96,24 @@ export default function Crawl(props) {
             created in no time.
           </h2>
         </div>
-        <div id="main">
-          <section id="content" className="main"></section>
-          {data.map(({ entityName, xPathNodes, DOMDesc }) => (
-            <CrawlForm
-              key={xPathNodes}
-              entityName={entityName}
-              xPathNodes={xPathNodes}
-              DOMDesc={DOMDesc}
-            />
-          ))}
-        </div>
+        <CrawlFormContext.Provider
+          value={{
+            rawData: data,
+          }}
+        >
+          <div id="main">
+            <section id="content" className="main"></section>
+            {data.map(({ entityName, xPathNodes, DOMDesc }) => (
+              <CrawlForm
+                update={handleUpdateFinishedData}
+                key={xPathNodes}
+                entityName={entityName}
+                xPathNodes={xPathNodes}
+                DOMDesc={DOMDesc}
+              />
+            ))}
+          </div>
+        </CrawlFormContext.Provider>
       </Layout>
     )
   }
