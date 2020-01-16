@@ -3,13 +3,9 @@ import Helmet from 'react-helmet'
 import { Link } from 'gatsby'
 // Components
 import Layout from '../components/layout'
+import CrawlForm from '../components/CrawlComponents/CrawlForm'
 // if success
 import HeaderCode from '../components/Headers/Header'
-// Code Presentation
-import Schema from '../components/CodePresentation/Schema'
-import App from '../components/CodePresentation/App'
-import Model from '../components/CodePresentation/Model'
-import Resolver from '../components/CodePresentation/Resolver'
 // If Failed to fetch
 import HeaderError from '../components/Headers/HeaderError'
 import TimedError from '../components/misc/TimedError'
@@ -17,20 +13,15 @@ import pic04 from '../assets/images/pic04.jpg'
 // Styling
 import './code.css'
 
-export default function Code(props) {
+export default function Crawl(props) {
   const GRAPHQL_ENDPOINT = 'http://localhost:4500/graphql'
   // values decoded from the URL
-  const [codeId, setCodeId] = useState(null)
-  const [creatorId, setCreatorId] = useState(null)
-  // retrieval code from the server
-  const [retrieval, setRetrievalCode] = useState(null)
-  // Parsed raw code from the API
-  const [rawCodeEntities, setRawCodeEntities] = useState(null)
+  const [crawlId, setCrawlId] = useState(null)
+  // Array of XPathNodes & DOMDesc. Also contains DOMNodes but these are host objects which cannot be saved to Mongo (Blank objects)
+  const [data, setData] = useState(null)
   // Error array which catches any issues with the pulled data from the server
   const [error, setError] = useState(null)
-  const retrievalRef = useRef(null)
 
-  console.log(rawCodeEntities)
   // Runs before painting the UI, redirect if no creatorID or codeID
   useLayoutEffect(() => {
     const { search } = props.location
@@ -38,24 +29,18 @@ export default function Code(props) {
       window.location = `/create`
       return
     }
-    /* 
-    EXAMPLE: Working Code & Creator example 
-    URL: http://localhost:8000/code?codeId=5e1226c0f7193a284c7ca4ef&creatorId=5e12180ef7193a284c7ca4ed
-    */
-    setCodeId(search.split('=')[1].split('&')[0])
-    setCreatorId(search.split('=')[2])
+    setCrawlId(search.split('=')[1])
   }, [props])
 
   // Fetch the code based on Code ID and the UserID which is supplied within the URL
   useEffect(() => {
-    if (!codeId || !creatorId || rawCodeEntities || retrieval) return
+    if (!crawlId) return
 
     const requestBody = {
       query: `query{
-        findCodeRedirect(codeId: "${codeId}", creatorId: "${creatorId}"){
+        findRawCrawl(crawlId: "${crawlId}"){
           _id
-          generatedCode
-          retrievalCode
+          rawAttributes
         }
       }
       `,
@@ -76,64 +61,41 @@ export default function Code(props) {
         return res.json()
       })
       .then(resData => {
-        let { generatedCode, retrievalCode } = resData.data.findCodeRedirect
-        setRawCodeEntities(JSON.parse(generatedCode))
-        setRetrievalCode(retrievalCode)
+        const { rawAttributes } = resData.data.findRawCrawl
+        setData(JSON.parse(rawAttributes))
+        console.log(data)
       })
       .catch(err => {
         setError(
           '😢 We are sorry you are having issues. Double check you have the correct retrieval code (this will have been emailed to you). You can create a new API or go back to the homepage by using the actions above.'
         )
       })
-  }, [codeId, creatorId])
+  }, [crawlId])
 
-  function copyToClipboard(e) {
-    //TODO: Get this to work!!
-    // See - https://stackoverflow.com/questions/39501289/in-reactjs-how-to-copy-text-to-clipboard
-    console.log(
-      'Copied to clipboard! Well not really, but in the future it will be :) '
-    )
-    /* retrievalRef.current.select()
-    document.execCommand('copy')
-    e.target.focus() */
-  }
+  if (!crawlId) return <p>Loading...</p>
 
-  if (!codeId || !creatorId) return <p>Loading...</p>
-
-  if (retrieval && rawCodeEntities) {
+  if (crawlId && data) {
     return (
       <Layout>
-        <Helmet title="Your Code!" />
+        <Helmet title="Almost there!" />
         <HeaderCode />
         <div className="retreivalCodeCard">
           <h2>
-            You can come back and get your code anytime by entering your unique
-            retrieval code below.
+            We just need to grab some more details about your selected DOM
+            Entities and we should have your GraphQL resolvers and Schema
+            created in no time.
           </h2>
-          <h1 onClick={copyToClipboard} ref={retrievalRef}>
-            {retrieval}
-          </h1>
-          <p>
-            <strong>Pro Tip:</strong> Click the code above to copy it to your
-            clipboard! 📋
-          </p>
-          <p>
-            You can also bookmark this page and view it any time in the future.
-          </p>
         </div>
         <div id="main">
-          <section id="content" className="main">
-            <Resolver rawCodeEntities={rawCodeEntities} />
-            <br />
-            <App />
-            <br />
-            <Schema rawCodeEntities={rawCodeEntities} />
-            <br />
-            {// Models
-            rawCodeEntities.map(([EntityName, Attributes]) => (
-              <Model EntityName={EntityName} Attributes={Attributes} />
-            ))}
-          </section>
+          <section id="content" className="main"></section>
+          {data.map(({ entityName, xPathNodes, DOMDesc }) => (
+            <CrawlForm
+              key={xPathNodes}
+              entityName={entityName}
+              xPathNodes={xPathNodes}
+              DOMDesc={DOMDesc}
+            />
+          ))}
         </div>
       </Layout>
     )
