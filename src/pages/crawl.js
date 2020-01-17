@@ -23,9 +23,7 @@ export default function Crawl(props) {
   const [finishedData, setFinishedData] = useState([])
   // Error array which catches any issues with the pulled data from the server
   const [error, setError] = useState(null)
-
-  const crawlFormContext = useContext(CrawlFormContext)
-
+  
   /* WORKING TEST
   http://localhost:8000/crawl?cid=5e1dca00527ca047f8e9be50
   */
