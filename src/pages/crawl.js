@@ -8,8 +8,6 @@ import CrawlForm from '../components/CrawlComponents/CrawlForm'
 import HeaderCode from '../components/Headers/Header'
 // If Failed to fetch
 import HeaderError from '../components/Headers/HeaderError'
-import TimedError from '../components/misc/TimedError'
-import pic04 from '../assets/images/pic04.jpg'
 // Context
 import CrawlFormContext from '../context/CrawlFormContext'
 // Styling
@@ -28,6 +26,9 @@ export default function Crawl(props) {
 
   const crawlFormContext = useContext(CrawlFormContext)
 
+  /* WORKING TEST
+  http://localhost:8000/crawl?cid=5e1dca00527ca047f8e9be50
+  */
   // Runs before painting the UI, redirect if no creatorID or codeID
   useLayoutEffect(() => {
     const { search } = props.location
