@@ -80,6 +80,7 @@ export default function Crawl(props) {
         setError(
           '😢 We are sorry you are having issues. Double check you have the correct retrieval code (this will have been emailed to you). You can create a new API or go back to the homepage by using the actions above.'
         )
+        console.log(err)
       })
   }, [crawlId])
 
@@ -99,7 +100,13 @@ export default function Crawl(props) {
         </div>
         <CrawlFormContext.Provider
           value={{
+            // All raw data parsed from the API
             rawData: data,
+            /* HANDLER to take care of adding new data to the array. We will need to []...finishedData]
+            to get the previous records*/
+            setFinishedData: entity => setFinishedData(entity),
+            // the current data in the array which will be spread
+            finishedData: finishedData
           }}
         >
           <div id="main">
