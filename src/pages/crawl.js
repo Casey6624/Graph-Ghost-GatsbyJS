@@ -55,6 +55,7 @@ export default function Crawl(props) {
       }
       `,
     }
+    // WORKING TEST - http://localhost:8000/crawl?cid=5e2980abdf187f385cf1a533
     // might need to be set to the GRAPHQL_URL constnant in prod
     fetch(GRAPHQL_ENDPOINT, {
       method: 'POST',
