@@ -1,14 +1,19 @@
 import React, { useState, useContext } from 'react'
 // Context
-import CrawlFormContext from "../../context/CrawlFormContext"
+import CrawlFormContext from '../../context/CrawlFormContext'
 // PURPOSE: Display the attributes which are concerned with the selected DOM elements
-export default function SelectedAttributes({ type, content, outerHTML, id }) {
+export default function SelectedAttributes({
+  type,
+  content,
+  outerHTML,
+  id,
+  formIndex,
+}) {
   const [attriName, setAttriName] = useState('')
   const [dataType, setDataType] = useState('String')
   const [status, setStatus] = useState(false)
 
   const crawlFormContext = useContext(CrawlFormContext)
-
 
   function attriNameHandler({ target }) {
     // Don't allow trailing spaces
@@ -39,7 +44,7 @@ export default function SelectedAttributes({ type, content, outerHTML, id }) {
       <h3>
         <strong>Full HTML:</strong> {outerHTML}
       </h3>
-      Enter DataType:{' '}
+      {!status ? `Enter Data Type: ` : null}
       {!status ? (
         <select
           className="inline-form-item"
@@ -54,7 +59,7 @@ export default function SelectedAttributes({ type, content, outerHTML, id }) {
           <option name="bool">Bool</option>
         </select>
       ) : null}
-      Enter Name:{' '}
+      {!status ? `Enter Name: ` : null}
       {!status ? (
         <input onChange={e => attriNameHandler(e)} value={attriName} />
       ) : null}
