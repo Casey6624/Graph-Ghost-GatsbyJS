@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, Fragment } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import AttributeForm from './AttributeForm'
 import CreateFormContext from '../../context/CreateFormContext'
 import CompletedEntity from '../EntityForm/CompletedEntity'

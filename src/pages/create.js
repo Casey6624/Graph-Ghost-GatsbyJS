@@ -18,7 +18,6 @@ import TimedError from '../components/misc/TimedError'
 export default function Create(props) {
   const [attributeForms, setAttributeForms] = useState([true])
   const [warning, setWarning] = useState(null)
-  const [serverResponse, setServerResponse] = useState(null)
   const [emailAddress, setEmailAddress] = useState('')
   const [emailValidity, setEmailValidity] = useState(false)
 
