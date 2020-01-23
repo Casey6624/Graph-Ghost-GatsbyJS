@@ -6,8 +6,10 @@ export default function SelectedAttributes({
   type,
   content,
   outerHTML,
-  id,
   formIndex,
+  entity,
+  setEntity,
+  xPath,
 }) {
   const [attriName, setAttriName] = useState('')
   const [dataType, setDataType] = useState('String')
@@ -32,6 +34,15 @@ export default function SelectedAttributes({
     if (attriName === '') return
     setStatus(true)
     console.log(attriName + ' has been submitted')
+    let tempEntity = [...entity]
+    // TODO: Add required
+    tempEntity.push({
+      attributeName: attriName,
+      dataType: dataType,
+      required: true,
+      xPath: xPath,
+    })
+    setEntity(tempEntity)
   }
   return (
     <div className="selected-attri-container">
@@ -67,11 +78,12 @@ export default function SelectedAttributes({
       {!status ? (
         <p>
           This attribute will be named: <strong>{attriName}</strong> with a Data
-          Type of {dataType}
+          Type of <strong>{dataType}</strong>
         </p>
       ) : (
         <p>
-          Attribute {attriName} saved, with a data type of {dataType}.
+          Attribute <strong>{attriName}</strong> saved, with a data type of{' '}
+          <strong>{dataType}</strong>.
         </p>
       )}
       <hr />

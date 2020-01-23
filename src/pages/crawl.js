@@ -12,6 +12,8 @@ import HeaderError from '../components/Headers/HeaderError'
 import CrawlFormContext from '../context/CrawlFormContext'
 // Styling
 import './code.css'
+// helpers
+import { validateEmail } from '../helpers/helpers'
 
 export default function Crawl(props) {
   const GRAPHQL_ENDPOINT = 'http://localhost:4500/graphql'
@@ -23,7 +25,9 @@ export default function Crawl(props) {
   const [finishedData, setFinishedData] = useState([])
   // Error array which catches any issues with the pulled data from the server
   const [error, setError] = useState(null)
-  
+  // email address
+  const [email, setEmail] = useState('')
+
   /* WORKING TEST
   http://localhost:8000/crawl?cid=5e1dca00527ca047f8e9be50
   */
@@ -37,9 +41,47 @@ export default function Crawl(props) {
     setCrawlId(search.split('=')[1])
   }, [props])
 
-  function handleUpdateFinishedData(id) {
-    console.log(id)
-  }
+  useEffect(() => {
+    console.log(finishedData)
+    if (!data) return
+    const emailCheck = validateEmail(email)
+    if (!emailCheck) {
+      // TODO: add TimedError component to display this
+      console.log('Please enter a valid email!')
+    }
+    // if all entities are correctly filled out
+    if (data.length === finishedData.length) {
+      let dataToPost = [...finishedData]
+      dataToPost = JSON.stringify({
+        data: dataToPost,
+        emailAddress: email,
+      })
+
+      fetch('http://localhost:4500/code-submit', {
+        method: 'POST',
+        body: dataToPost,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then(res => {
+          return res.json()
+        })
+        .then(data => {
+          const { codeId, creatorId } = data
+          if (!codeId) {
+            throw new Error('Code ID is missing!')
+          }
+          if (!creatorId) {
+            throw new Error('Creator ID is missing!')
+          }
+          window.location = `/code?codeId=${codeId}&creatorId=${creatorId}`
+        })
+        .catch(err => {
+          throw new Error('There was an issue loading this combination.')
+        })
+    }
+  }, [finishedData])
 
   // Fetch the code based on Code ID and the UserID which is supplied within the URL
   useEffect(() => {
@@ -54,7 +96,7 @@ export default function Crawl(props) {
       }
       `,
     }
-    // WORKING TEST - http://localhost:8000/crawl?cid=5e2980abdf187f385cf1a533
+    // WORKING TEST - http://localhost:8000/crawl?cid=5e29a278df187f385cf1a537
     // might need to be set to the GRAPHQL_URL constnant in prod
     fetch(GRAPHQL_ENDPOINT, {
       method: 'POST',
@@ -73,7 +115,6 @@ export default function Crawl(props) {
       .then(resData => {
         const { rawAttributes } = resData.data.findRawCrawl
         setData(JSON.parse(rawAttributes))
-        console.log(data)
       })
       .catch(err => {
         setError(
@@ -82,6 +123,10 @@ export default function Crawl(props) {
         console.log(err)
       })
   }, [crawlId])
+
+  function handleEmailUpdate({ target: { value } }) {
+    setEmail(value)
+  }
 
   if (!crawlId) return <p>Loading...</p>
 
@@ -105,18 +150,26 @@ export default function Crawl(props) {
             to get the previous records*/
             setFinishedData: entity => setFinishedData(entity),
             // the current data in the array which will be spread
-            finishedData: finishedData
+            finishedData: finishedData,
           }}
         >
           <div id="main">
             <section id="content" className="main"></section>
+            <input
+              type="email"
+              placeholder="Please Enter Your Email Address"
+              onChange={e => handleEmailUpdate(e)}
+            />
             {data.map(({ entityName, xPathNodes, DOMDesc }) => (
               <CrawlForm
-                update={handleUpdateFinishedData}
                 key={xPathNodes}
+                // DOMDesc stuff
                 entityName={entityName}
                 xPathNodes={xPathNodes}
                 DOMDesc={DOMDesc}
+                // read and update
+                finishedData={finishedData}
+                setFinishedData={setFinishedData}
               />
             ))}
           </div>
