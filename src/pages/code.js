@@ -10,6 +10,7 @@ import Schema from '../components/CodePresentation/Schema'
 import App from '../components/CodePresentation/App'
 import Model from '../components/CodePresentation/Model'
 import Resolver from '../components/CodePresentation/Resolver'
+import CrawlResolver from '../components/CodePresentation/CrawlResolver'
 // If Failed to fetch
 import HeaderError from '../components/Headers/HeaderError'
 import TimedError from '../components/misc/TimedError'
@@ -123,7 +124,11 @@ export default function Code(props) {
         </div>
         <div id="main">
           <section id="content" className="main">
-            <Resolver rawCodeEntities={rawCodeEntities} />
+            {rawCodeEntities[0][1][0].xPath ? (
+              <CrawlResolver rawCodeEntities={rawCodeEntities} />
+            ) : (
+              <Resolver rawCodeEntities={rawCodeEntities} />
+            )}
             <br />
             <App />
             <br />
