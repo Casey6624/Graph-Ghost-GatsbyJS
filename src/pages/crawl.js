@@ -9,7 +9,7 @@ import HeaderCode from '../components/Headers/Header'
 // If Failed to fetch
 import HeaderError from '../components/Headers/HeaderError'
 // Styling
-import './code.css'
+import './crawl.css'
 // helpers
 import { validateEmail } from '../helpers/helpers'
 
@@ -25,9 +25,10 @@ export default function Crawl(props) {
   const [error, setError] = useState(null)
   // email address
   const [email, setEmail] = useState('')
+  const [url, setUrl] = useState('')
 
   /* WORKING TEST
-  http://localhost:8000/crawl?cid=5e1dca00527ca047f8e9be50
+  http://localhost:8000/crawl?cid=5e32be1082fdad1934e4c713
   */
   // Runs before painting the UI, redirect if no creatorID or codeID
   useLayoutEffect(() => {
@@ -90,6 +91,7 @@ export default function Crawl(props) {
         findRawCrawl(crawlId: "${crawlId}"){
           _id
           rawAttributes
+          url
         }
       }
       `,
@@ -111,8 +113,9 @@ export default function Crawl(props) {
         return res.json()
       })
       .then(resData => {
-        const { rawAttributes } = resData.data.findRawCrawl
+        const { rawAttributes, url } = resData.data.findRawCrawl
         setData(JSON.parse(rawAttributes))
+        setUrl(url)
       })
       .catch(err => {
         setError(
@@ -142,8 +145,15 @@ export default function Crawl(props) {
         </div>
         <div id="main">
           <section id="content" className="main"></section>
+          {url ? (
+            <h2>
+              <strong>URL To Crawl:</strong> {url}
+            </h2>
+          ) : null}
+          <h3>Lets get started! Please enter your email address below.</h3>
           <input
             type="email"
+            id="emailInput"
             placeholder="Please Enter Your Email Address"
             onChange={e => handleEmailUpdate(e)}
           />

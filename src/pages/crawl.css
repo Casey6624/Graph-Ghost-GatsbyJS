@@ -1,0 +1,13 @@
+#main h2 {
+  text-align: center !important;
+  color: #935d8c;
+}
+
+#main h3 {
+  text-align: center !important;
+}
+
+#emailInput {
+  width: 80%;
+  margin: 0 auto;
+}
