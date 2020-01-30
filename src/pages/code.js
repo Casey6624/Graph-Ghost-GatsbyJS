@@ -25,6 +25,8 @@ export default function Code(props) {
   const [creatorId, setCreatorId] = useState(null)
   // retrieval code from the server
   const [retrieval, setRetrievalCode] = useState(null)
+  // url from the crawled entity
+  const [url, setUrl] = useState('')
   // Parsed raw code from the API
   const [rawCodeEntities, setRawCodeEntities] = useState(null)
   // Error array which catches any issues with the pulled data from the server
@@ -57,6 +59,7 @@ export default function Code(props) {
           _id
           generatedCode
           retrievalCode
+          url
         }
       }
       `,
@@ -77,9 +80,14 @@ export default function Code(props) {
         return res.json()
       })
       .then(resData => {
-        let { generatedCode, retrievalCode } = resData.data.findCodeRedirect
+        let {
+          generatedCode,
+          retrievalCode,
+          url,
+        } = resData.data.findCodeRedirect
         setRawCodeEntities(JSON.parse(generatedCode))
         setRetrievalCode(retrievalCode)
+        setUrl(url)
       })
       .catch(err => {
         setError(
@@ -125,7 +133,7 @@ export default function Code(props) {
         <div id="main">
           <section id="content" className="main">
             {rawCodeEntities[0][1][0].xPath ? (
-              <CrawlResolver rawCodeEntities={rawCodeEntities} />
+              <CrawlResolver rawCodeEntities={rawCodeEntities} url={url} />
             ) : (
               <Resolver rawCodeEntities={rawCodeEntities} />
             )}

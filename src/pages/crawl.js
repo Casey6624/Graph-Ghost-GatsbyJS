@@ -54,6 +54,7 @@ export default function Crawl(props) {
       dataToPost = JSON.stringify({
         data: dataToPost,
         emailAddress: email,
+        url: url,
       })
 
       fetch('http://localhost:4500/code-submit', {
