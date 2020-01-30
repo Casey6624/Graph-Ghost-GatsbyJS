@@ -8,8 +8,6 @@ import CrawlForm from '../components/CrawlComponents/CrawlForm'
 import HeaderCode from '../components/Headers/Header'
 // If Failed to fetch
 import HeaderError from '../components/Headers/HeaderError'
-// Context
-import CrawlFormContext from '../context/CrawlFormContext'
 // Styling
 import './code.css'
 // helpers
@@ -142,38 +140,26 @@ export default function Crawl(props) {
             created in no time.
           </h2>
         </div>
-        <CrawlFormContext.Provider
-          value={{
-            // All raw data parsed from the API
-            rawData: data,
-            /* HANDLER to take care of adding new data to the array. We will need to []...finishedData]
-            to get the previous records*/
-            setFinishedData: entity => setFinishedData(entity),
-            // the current data in the array which will be spread
-            finishedData: finishedData,
-          }}
-        >
-          <div id="main">
-            <section id="content" className="main"></section>
-            <input
-              type="email"
-              placeholder="Please Enter Your Email Address"
-              onChange={e => handleEmailUpdate(e)}
+        <div id="main">
+          <section id="content" className="main"></section>
+          <input
+            type="email"
+            placeholder="Please Enter Your Email Address"
+            onChange={e => handleEmailUpdate(e)}
+          />
+          {data.map(({ entityName, xPathNodes, DOMDesc }) => (
+            <CrawlForm
+              key={xPathNodes}
+              // DOMDesc stuff
+              entityName={entityName}
+              xPathNodes={xPathNodes}
+              DOMDesc={DOMDesc}
+              // read and update
+              finishedData={finishedData}
+              setFinishedData={setFinishedData}
             />
-            {data.map(({ entityName, xPathNodes, DOMDesc }) => (
-              <CrawlForm
-                key={xPathNodes}
-                // DOMDesc stuff
-                entityName={entityName}
-                xPathNodes={xPathNodes}
-                DOMDesc={DOMDesc}
-                // read and update
-                finishedData={finishedData}
-                setFinishedData={setFinishedData}
-              />
-            ))}
-          </div>
-        </CrawlFormContext.Provider>
+          ))}
+        </div>
       </Layout>
     )
   }

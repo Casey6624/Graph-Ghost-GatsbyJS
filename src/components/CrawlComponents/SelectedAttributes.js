@@ -1,6 +1,4 @@
 import React, { useState, useContext } from 'react'
-// Context
-import CrawlFormContext from '../../context/CrawlFormContext'
 // PURPOSE: Display the attributes which are concerned with the selected DOM elements
 export default function SelectedAttributes({
   type,
@@ -14,8 +12,6 @@ export default function SelectedAttributes({
   const [attriName, setAttriName] = useState('')
   const [dataType, setDataType] = useState('String')
   const [status, setStatus] = useState(false)
-
-  const crawlFormContext = useContext(CrawlFormContext)
 
   function attriNameHandler({ target }) {
     // Don't allow trailing spaces
