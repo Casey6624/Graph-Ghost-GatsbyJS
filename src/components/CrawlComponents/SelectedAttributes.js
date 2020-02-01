@@ -11,6 +11,7 @@ export default function SelectedAttributes({
 }) {
   const [attriName, setAttriName] = useState('')
   const [dataType, setDataType] = useState('String')
+  const [required, setRequired] = useState(false)
   const [status, setStatus] = useState(false)
 
   function attriNameHandler({ target }) {
@@ -23,8 +24,17 @@ export default function SelectedAttributes({
     setAttriName(target)
   }
 
-  function dataTypeHandler({ target: { value } }) {
-    setDataType(value)
+  console.log(required)
+
+  function dropdownChangeHandler({ target: { value, name } }) {
+    switch (name) {
+      case 'attributeRequired':
+        setRequired(value)
+        break
+      case 'attributeDataType':
+        setDataType(value)
+        break
+    }
   }
   function submitHandler() {
     if (attriName === '') return
@@ -35,7 +45,7 @@ export default function SelectedAttributes({
     tempEntity.push({
       attributeName: attriName,
       dataType: dataType,
-      required: true,
+      required: required,
       xPath: xPath,
     })
     setEntity(tempEntity)
@@ -56,7 +66,7 @@ export default function SelectedAttributes({
         <select
           className="inline-form-item"
           name="attributeDataType"
-          onChange={e => dataTypeHandler(e)}
+          onChange={e => dropdownChangeHandler(e)}
         >
           <option name="string" defaultValue>
             String
@@ -66,6 +76,20 @@ export default function SelectedAttributes({
           <option name="bool">Bool</option>
         </select>
       ) : null}
+      {!status ? (
+        <select
+          className="inline-form-item"
+          name="attributeRequired"
+          onChange={e => dropdownChangeHandler(e)}
+        >
+          <option name="required" defaultValue value={true}>
+            Required (Not Nullable)
+          </option>
+          <option name="notRequired" value={false}>
+            Not Required (Nullable)
+          </option>
+        </select>
+      ) : null}
       {!status ? `Enter Name: ` : null}
       {!status ? (
         <input onChange={e => attriNameHandler(e)} value={attriName} />
@@ -73,8 +97,9 @@ export default function SelectedAttributes({
       {!status ? <button onClick={submitHandler}>Submit</button> : null}
       {!status ? (
         <p>
-          This attribute will be named: <strong>{attriName}</strong> with a Data
-          Type of <strong>{dataType}</strong>
+          This {required ? 'Non-Nullable' : 'Nullable'} attribute will be named:{' '}
+          <strong>{attriName}</strong> with a Data Type of{' '}
+          <strong>{dataType}</strong>
         </p>
       ) : (
         <p>
