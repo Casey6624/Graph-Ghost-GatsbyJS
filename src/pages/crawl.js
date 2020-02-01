@@ -16,6 +16,7 @@ import { validateEmail } from '../helpers/helpers'
 
 export default function Crawl(props) {
   const GRAPHQL_ENDPOINT = 'http://localhost:4500/graphql'
+  const REST_ENDPOINT = 'http://localhost:4500/code-submit'
   // values decoded from the URL
   const [crawlId, setCrawlId] = useState(null)
   // Array of XPathNodes & DOMDesc. Also contains DOMNodes but these are host objects which cannot be saved to Mongo (Blank objects)
@@ -42,12 +43,11 @@ export default function Crawl(props) {
   }, [props])
 
   useEffect(() => {
-    console.log(finishedData)
     if (!data) return
     const emailCheck = validateEmail(email)
     if (!emailCheck) {
       // TODO: add TimedError component to display this
-      setError('Please enter a valid email address!')
+      setError('⚠️ Please enter a valid email address!')
     }
     // if all entities are correctly filled out
     if (data.length === finishedData.length && email !== '') {
@@ -58,7 +58,7 @@ export default function Crawl(props) {
         url: url,
       })
 
-      fetch('http://localhost:4500/code-submit', {
+      fetch(REST_ENDPOINT, {
         method: 'POST',
         body: dataToPost,
         headers: {
@@ -79,7 +79,7 @@ export default function Crawl(props) {
           window.location = `/code?codeId=${codeId}&creatorId=${creatorId}`
         })
         .catch(err => {
-          throw new Error('There was an issue loading this combination.')
+          setError('⚠️ There was an issue loading this combination.')
         })
     }
   }, [finishedData, email])

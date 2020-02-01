@@ -103,7 +103,8 @@ export default function SelectedAttributes({
         </p>
       ) : (
         <p>
-          Attribute <strong>{attriName}</strong> saved, with a data type of{' '}
+          {required ? 'Non-Nullable' : 'Nullable'} Attribute{' '}
+          <strong>{attriName}</strong> saved, with a data type of{' '}
           <strong>{dataType}</strong>.
         </p>
       )}
