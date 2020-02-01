@@ -8,6 +8,7 @@ import CrawlForm from '../components/CrawlComponents/CrawlForm'
 import HeaderCode from '../components/Headers/Header'
 // If Failed to fetch
 import HeaderError from '../components/Headers/HeaderError'
+import TimedError from '../components/misc/TimedError'
 // Styling
 import './crawl.css'
 // helpers
@@ -46,10 +47,10 @@ export default function Crawl(props) {
     const emailCheck = validateEmail(email)
     if (!emailCheck) {
       // TODO: add TimedError component to display this
-      console.log('Please enter a valid email!')
+      setError('Please enter a valid email address!')
     }
     // if all entities are correctly filled out
-    if (data.length === finishedData.length) {
+    if (data.length === finishedData.length && email !== '') {
       let dataToPost = [...finishedData]
       dataToPost = JSON.stringify({
         data: dataToPost,
@@ -81,7 +82,7 @@ export default function Crawl(props) {
           throw new Error('There was an issue loading this combination.')
         })
     }
-  }, [finishedData])
+  }, [finishedData, email])
 
   // Fetch the code based on Code ID and the UserID which is supplied within the URL
   useEffect(() => {
@@ -158,6 +159,7 @@ export default function Crawl(props) {
             placeholder="Please Enter Your Email Address"
             onChange={e => handleEmailUpdate(e)}
           />
+          <TimedError setWarning={setError} warning={error} />
           {data.map(({ entityName, xPathNodes, DOMDesc }) => (
             <CrawlForm
               key={xPathNodes}
