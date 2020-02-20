@@ -9,15 +9,17 @@ export default function Resolver({ rawCodeEntities, url }) {
   useEffect(() => {
     if (!rawCodeEntities) return
 
-    let masterCopy
-    rawCodeEntities.forEach(([EntityName, Attributes]) => {
-      let tempStr
+    let masterCopy = ''
+    rawCodeEntities.forEach(([EntityName, Attributes], entityIndex) => {
+      let tempStr = ''
       Attributes.forEach(
         ({ attributeName, dataType, required, xPath }, index) => {
-          tempStr += `{ attributeName: '${attributeName}', xPath: '${xPath}' }`
+          tempStr += `{ attributeName: '${attributeName}', xPath: '${xPath}' } `
         }
       )
-      masterCopy += `{ ${EntityName}: ${tempStr} }`
+      masterCopy += ` { ${EntityName}: ${tempStr} }${
+        entityIndex !== rawCodeEntities.length - 1 ? ',' : ''
+      } `
       tempStr = ''
     })
     setDestructuredObj(masterCopy)

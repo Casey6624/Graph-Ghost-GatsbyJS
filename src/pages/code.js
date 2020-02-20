@@ -42,8 +42,8 @@ export default function Code(props) {
       return
     }
     /* 
-    EXAMPLE: Working Code & Creator example 
-    URL: http://localhost:8000/code?codeId=5e1226c0f7193a284c7ca4ef&creatorId=5e12180ef7193a284c7ca4ed
+    EXAMPLE: Working Crawl code example
+    URL: http://localhost:8000/code/?codeId=5e32d3f4f7f9b009c40c8299&creatorId=5e32d3f3f7f9b009c40c8298
     */
     setCodeId(search.split('=')[1].split('&')[0])
     setCreatorId(search.split('=')[2])
