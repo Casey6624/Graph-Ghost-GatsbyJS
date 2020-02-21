@@ -138,9 +138,10 @@ export default function Code(props) {
               <Resolver rawCodeEntities={rawCodeEntities} />
             )}
             <br />
-            <App />
-            <br />
             <Schema rawCodeEntities={rawCodeEntities} />
+            <br />
+            <App />
+
             <br />
             {// Models
             rawCodeEntities.map(([EntityName, Attributes]) => (

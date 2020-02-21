@@ -3,18 +3,28 @@ import React, { useEffect, useState } from 'react'
 import Snippet from './Snippet'
 import SnippetHeader from './SnippetHeader'
 
-export default function Resolver({ rawCodeEntities, url }) {
+export default function CrawlResolver({ rawCodeEntities, url }) {
   const [destructuredObj, setDestructuredObj] = useState('')
+  const [finishedMutations, setFinishedMutations] = useState('')
 
   useEffect(() => {
     if (!rawCodeEntities) return
 
     let masterCopy = ''
+    let tempMutations = ''
     rawCodeEntities.forEach(([EntityName, Attributes], entityIndex) => {
       let tempStr = ''
+      // get mutations code
+      tempMutations += `create${EntityName}: async args => {
+        const {${Attributes.map(
+          ({ attributeName }) => ' ' + attributeName
+        )} } = args.${EntityName.toLowerCase()}Input`
+
       Attributes.forEach(
         ({ attributeName, dataType, required, xPath }, index) => {
-          tempStr += `{ attributeName: '${attributeName}', xPath: '${xPath}' } `
+          tempStr += `{ attributeName: '${attributeName}', xPath: '${xPath}' }${
+            index !== Attributes.length - 1 ? ',' : ''
+          } `
         }
       )
       masterCopy += ` { ${EntityName}: ${tempStr} }${
@@ -23,6 +33,7 @@ export default function Resolver({ rawCodeEntities, url }) {
       tempStr = ''
     })
     setDestructuredObj(masterCopy)
+    setFinishedMutations(tempMutations)
   }, [rawCodeEntities])
 
   if (!rawCodeEntities) {
@@ -31,21 +42,23 @@ export default function Resolver({ rawCodeEntities, url }) {
 
   let formatted = `
   const puppeteer = require("puppeteer");
-
+  const urlToCrawl = "${url}"
   const elements = ${destructuredObj}
 
-async function scrape(url, xPath) {
+  ${`module.exports = GraphQLResolvers = {
+    ${finishedMutations}
+  }`}
+
+async function scrape(urlToCrawl, xPath) {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto(url);
+  await page.goto(urlToCrawl);
 
   const [el] = await page.$x(xPath);
   const txt = await el.getProperty("textContent");
   const rawTxt = await txt.jsonValue();
   console.log(rawTxt);
 }
-
-
 `
 
   return (
