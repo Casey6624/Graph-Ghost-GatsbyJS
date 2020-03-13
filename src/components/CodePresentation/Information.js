@@ -34,7 +34,9 @@ export default function Information({ setShowInfo, showInfo, technology }) {
     <div className="informationContainer">
       <div className="defaultFlex">
         {Logos.information}
-        <h4>{technology}</h4>
+        <strong>
+          <h4>{technology}</h4>
+        </strong>
       </div>
       <p>{textBody}</p>
     </div>

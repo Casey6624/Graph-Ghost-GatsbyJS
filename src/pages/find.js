@@ -14,7 +14,7 @@ import ChangeableGhost from '../components/ChangeableGhost'
 import './find.css'
 
 export default function Find(props) {
-  const graphQLEndpoint = 'http://localhost:4500/graphql'
+  const graphQLEndpoint = 'http://localhost:4500/api/graphql'
   const [emailAddress, setEmailAddress] = useState('')
   const [retrievalCode, setRetrievalCode] = useState('')
   const [error, setError] = useState(null)
