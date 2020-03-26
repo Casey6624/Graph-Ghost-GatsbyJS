@@ -76,15 +76,18 @@ export default function Create(props) {
       .then(data => {
         const { codeId, creatorId } = data
         if (!codeId) {
-          throw new Error('Code ID is missing!')
+          setWarning('Code ID is missing!')
+          return
         }
         if (!creatorId) {
-          throw new Error('Creator ID is missing!')
+          setWarning('Creator ID is missing!')
+          return
         }
         window.location = `/code?codeId=${codeId}&creatorId=${creatorId}`
       })
       .catch(err => {
-        throw new Error('There was an issue loading this combination.')
+        setWarning('There was an issue loading this combination.')
+        return
       })
   }
 
