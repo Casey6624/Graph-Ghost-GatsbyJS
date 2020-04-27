@@ -49,14 +49,15 @@ export default function Create(props) {
   }
 
   function sendToServer() {
-    if (allEntities.length === 0) {
+    console.log('POST triggered')
+    /*     if (allEntities.length === 0) {
       setWarning('⚠️ You must add at least one entity before submitting!')
       return
     }
     if (emailAddress === '') {
       setWarning('⚠️ You must set an email address before continuing.')
       return
-    }
+    } */
     let dataToPost = [...allEntities]
     dataToPost = JSON.stringify({
       data: dataToPost,
@@ -86,7 +87,7 @@ export default function Create(props) {
         window.location = `/code?codeId=${codeId}&creatorId=${creatorId}`
       })
       .catch(err => {
-        setWarning('There was an issue loading this combination.')
+        setWarning(err.message)
         return
       })
   }
