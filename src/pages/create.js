@@ -64,7 +64,7 @@ export default function Create(props) {
       emailAddress: emailAddress,
     })
 
-    fetch('https://graphghost.co.uk/code-submit', {
+    fetch('https://graphghost.co.uk/code-submit/', {
       method: 'POST',
       body: dataToPost,
       headers: {

@@ -16,7 +16,7 @@ import { validateEmail } from '../helpers/helpers'
 
 export default function Crawl(props) {
   const GRAPHQL_ENDPOINT = 'https://graphghost.co.uk/graphql/'
-  const REST_ENDPOINT = 'https://graphghost.co.uk/code-submit'
+  const REST_ENDPOINT = 'https://graphghost.co.uk/code-submit/'
   // values decoded from the URL
   const [crawlId, setCrawlId] = useState(null)
   // Array of XPathNodes & DOMDesc. Also contains DOMNodes but these are host objects which cannot be saved to Mongo (Blank objects)
