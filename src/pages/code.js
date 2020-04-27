@@ -19,7 +19,7 @@ import pic04 from '../assets/images/pic04.jpg'
 import './code.css'
 
 export default function Code(props) {
-  const GRAPHQL_ENDPOINT = 'http://localhost:4500/graphql'
+  const GRAPHQL_ENDPOINT = 'https://graphghost.co.uk/graphql'
   // values decoded from the URL
   const [codeId, setCodeId] = useState(null)
   const [creatorId, setCreatorId] = useState(null)
