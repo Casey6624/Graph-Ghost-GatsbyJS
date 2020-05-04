@@ -177,21 +177,18 @@ export default function Index(props) {
 
         <section id="cta" className="main special">
           <header className="major">
-            <h2>Graph Ghost Plugin - Coming Very Soon!</h2>
+            <h2>Install Graph Ghost Now!</h2>
+            <p>Click below to install our Google Chrome extension.</p>
           </header>
           <footer className="major">
             <ul className="actions">
               <li>
-                <p>Watch this space.</p>
-              </li>
-              <br />
-              <li>
-                <h2>Already Created an API? Click Below!</h2>
-                <Link to="/find" className="button">
-                  <span className="icon style1 fa-search"></span>
-                  &nbsp;
-                  <span>Find My API</span>
-                </Link>
+                <a
+                  href="https://chrome.google.com/webstore/detail/epdcfgbfjnpknkdnklhhofndekpmaiad/publish-accepted?authuser=0&hl=en-US"
+                  className="button special"
+                >
+                  Download
+                </a>
               </li>
             </ul>
           </footer>
@@ -200,25 +197,3 @@ export default function Index(props) {
     </Layout>
   )
 }
-
-/*
-  BOTTOM BLURB WHEN SITE IS LIVE
-
-          <section id="cta" className="main special">
-            <header className="major">
-              <h2>Install Graph Ghost Now!</h2>
-              <p>Click below to install our Google Chrome extension.</p>
-            </header>
-            <footer className="major">
-              <ul className="actions">
-                <li>
-                  <Link to="/generic" className="button special">
-                    Download
-                  </Link>
-                </li>
-              </ul>
-            </footer>
-          </section>
-
-
-*/
