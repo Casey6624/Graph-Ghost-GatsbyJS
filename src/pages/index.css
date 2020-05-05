@@ -8,3 +8,13 @@
 .centerElements {
   text-align: center;
 }
+
+.side-by-side-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+#get-started-desc > li {
+  font-weight: bold;
+  text-transform: capitalize;
+}

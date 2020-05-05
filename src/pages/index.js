@@ -176,22 +176,75 @@ export default function Index(props) {
         </section>
 
         <section id="cta" className="main special">
-          <header className="major">
-            <h2>Install Graph Ghost Now!</h2>
-            <p>Click below to install our Google Chrome extension.</p>
-          </header>
-          <footer className="major">
-            <ul className="actions">
-              <li>
-                <a
-                  href="https://chrome.google.com/webstore/detail/epdcfgbfjnpknkdnklhhofndekpmaiad/publish-accepted?authuser=0&hl=en-US"
-                  className="button special"
-                >
-                  Download
-                </a>
-              </li>
-            </ul>
-          </footer>
+          <h1>Get Started.</h1>
+          <p>Choose from the following two methods:</p>
+          <div className="side-by-side-flex">
+            <div>
+              <header className="major">
+                <h2>Create an API From Scratch</h2>
+                <p>
+                  Click below to create a fully functioning GraphQL API from
+                  scratch.
+                </p>
+              </header>
+              <footer className="major">
+                <ul className="actions" id="get-started-desc">
+                  <li>
+                    <span className="icon fa-check"></span> No installations
+                    required.
+                  </li>
+                  <li>
+                    <span className="icon fa-check"></span>
+                    Creation of Mongoose Database models and findAll, create
+                    GraphQL resolver routes.
+                  </li>
+                  <li>
+                    <span className="icon fa-hourglass"></span> Takes 2 Minutes
+                  </li>
+                </ul>
+                <ul className="actions">
+                  <li>
+                    <Link to="/create" className="button special">
+                      <span className="icon fa-plus"></span> Create Now
+                    </Link>
+                  </li>
+                </ul>
+              </footer>
+            </div>
+            <div>
+              <header className="major">
+                <h2>Create an API From Public Web Data</h2>
+                <p>
+                  This method requires the installation of the Graph Ghost
+                  Google Chrome extension. Get it from the Google Chrome store
+                  by clicking below
+                </p>
+              </header>
+              <footer className="major">
+                <ul className="actions" id="get-started-desc">
+                  <li>
+                    <span className="icon fa-check"></span>
+                    Create API from an existing web page.
+                  </li>
+                  <br />
+                  <li>
+                    <span className="icon fa-hourglass"></span> Takes 6 Minutes
+                  </li>
+                </ul>
+                <ul className="actions">
+                  <li>
+                    <a
+                      href="https://chrome.google.com/webstore/detail/epdcfgbfjnpknkdnklhhofndekpmaiad/publish-accepted?authuser=0&hl=en-US"
+                      className="button special"
+                    >
+                      <span className="icon fa-download"></span> Install Google
+                      Chrome Extension
+                    </a>
+                  </li>
+                </ul>
+              </footer>
+            </div>
+          </div>
         </section>
       </div>
     </Layout>
